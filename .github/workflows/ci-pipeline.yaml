@@ -43,6 +43,19 @@ jobs:
       - name: Build with Maven
         run: mvn clean install -B -V
 
+      - name: Run Tests
+        run: mvn test
+
+      - name: Generate JaCoCo Test Report
+        run: mvn verify
+
+      - name: Upload JaCoCo HTML Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: |
+            ./core/target/site/jacoco/
+
       # Optional: Check license headers with Spotless
       - name: Check code formatting / license headers
         run: mvn spotless:check
