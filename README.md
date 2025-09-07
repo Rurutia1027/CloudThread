@@ -1,4 +1,5 @@
-# CloudThread — Cloud-Native, Dynamic, and Observable Java Thread Pools
+# CloudThread | [![Java CI](https://github.com/Rurutia1027/cloudthread/actions/workflows/ci-pipeline.yaml/badge.svg)](https://github.com/Rurutia1027/cloudthread/actions/workflows/ci-pipeline.yaml)
+__Cloud-Native, Dynamic, and Observable Java Thread Pools__
 
 CloudThread is a cloud-native, dynamic, and observable Java thread pool framework, built for Kubernetes, microservices,
 and modern DevOps workflows.
