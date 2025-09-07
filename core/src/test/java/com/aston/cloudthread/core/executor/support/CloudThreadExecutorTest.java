@@ -26,6 +26,8 @@ import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class CloudThreadExecutorTest {
     private CloudThreadExecutor executor;
 
@@ -57,7 +59,7 @@ class CloudThreadExecutorTest {
     void testBasicTaskExecution() {
         executor = newExecutor(10, new ThreadPoolExecutor.AbortPolicy(), 1000);
         Future<String> future = executor.submit(() -> "hello");
-        Assertions.assertEquals("hello", future.get());
+        assertEquals("hello", future.get());
     }
 
     @Test
@@ -85,7 +87,59 @@ class CloudThreadExecutorTest {
                 }));
 
         // Verify rejectCount was incremented by our custom handler wrapper
-        Assertions.assertEquals(1, executor.getRejectCount().get());
+        assertEquals(1, executor.getRejectCount().get());
     }
 
+    @Test
+    void testRejectHandlerToString() {
+        // given
+        RejectedExecutionHandler handler = new ThreadPoolExecutor.DiscardPolicy();
+        executor = newExecutor(1, handler, 1000);
+
+        // when
+        RejectedExecutionHandler wrapped = ((ThreadPoolExecutor) executor).getRejectedExecutionHandler();
+        String expected = handler.getClass().getSimpleName();
+        String actual = wrapped.toString();
+
+        // then
+        assertEquals(expected, actual, "Wrapped handler.toString() should return original handler simple name");
+    }
+
+    @Test
+    void testShutdownWithAwaitTerminationSuccess() {
+        executor = newExecutor(1, new ThreadPoolExecutor.AbortPolicy(), 100);
+        executor.execute(() -> {
+        });
+        executor.shutdown();
+        Assertions.assertTrue(executor.isShutdown());
+    }
+
+    @Test
+    void testShutdownWithTimeout() {
+        executor = newExecutor(1, new ThreadPoolExecutor.AbortPolicy(), 10);
+
+        // Submit long-running task so shutdown cannot complete in time
+        executor.execute(() ->
+        {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException ex) {
+            }
+        });
+        executor.shutdown();
+        Assertions.assertTrue(executor.isShutdown());
+    }
+
+    @Test
+    @SneakyThrows
+    void testShutdownInterrupted() {
+        executor = newExecutor(1, new ThreadPoolExecutor.AbortPolicy(), 50);
+
+        // Start a thread that interrupts the main thread during shutdown
+        Thread.currentThread().interrupt();
+        executor.shutdown();
+
+        // Clear interrupted flag for JVM stability
+        Assertions.assertTrue(Thread.interrupted());
+    }
 }
