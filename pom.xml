@@ -23,6 +23,9 @@
             <url>https://github.com/rurutia1027</url>
         </developer>
     </developers>
+    <modules>
+        <module>core</module>
+    </modules>
 
     <properties>
         <java.version>17</java.version>
