@@ -89,4 +89,8 @@ public class CloudThreadRegistry {
     public static Collection<ThreadPoolExecutorWrapper> getAllWrappers() {
         return WRAPPER_MAP.values();
     }
+
+    public static void clear() {
+        WRAPPER_MAP.clear();
+    }
 }
