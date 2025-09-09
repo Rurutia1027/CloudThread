@@ -15,6 +15,7 @@ package com.aston.cloudthread.core.parser;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Interface for config parser
@@ -35,7 +36,7 @@ public interface ConfigParser {
      * @return parsed key,value pair in map
      * @throws IOException throw exception when parse failed
      */
-    boolean doParse(String content) throws IOException;
+    Map<Object, Object> doParse(String content) throws IOException;
 
     /**
      * Fetch current parser supports config file type list
