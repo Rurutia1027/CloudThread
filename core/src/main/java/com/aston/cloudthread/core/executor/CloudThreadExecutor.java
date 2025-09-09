@@ -55,7 +55,7 @@ public class CloudThreadExecutor extends ThreadPoolExecutor {
      * @param corePoolSize           the number of core threads to keep in the pool,
      *                               even if they are idle (unless {@code allowCoreThreadTimeOut} is enabled)
      * @param maximumPoolSize        the maximum number of threads allowed in the pool
-     * @param keepAliveTime          the maximum time that excess idle threads (beyond the core size)
+     * @param keepAliveTimeSeconds          the maximum time that excess idle threads (beyond the core size)
      *                               will wait for new tasks before terminating
      * @param timeUnit               the unit for {@code keepAliveTime}
      * @param workQueue              the queue used to hold tasks before they are executed by worker threads;
@@ -67,7 +67,7 @@ public class CloudThreadExecutor extends ThreadPoolExecutor {
      *                               after the executor is shut down
      * @throws IllegalArgumentException if:<br>
      *                                  {@code corePoolSize < 0},<br>
-     *                                  {@code keepAliveTime < 0},<br>
+     *                                  {@code keepAliveTimeSeconds < 0},<br>
      *                                  {@code maximumPoolSize <= 0}, or<br>
      *                                  {@code maximumPoolSize < corePoolSize}
      * @throws NullPointerException     if {@code workQueue}, {@code timeUnit}, {@code threadFactory},
@@ -77,13 +77,13 @@ public class CloudThreadExecutor extends ThreadPoolExecutor {
             @NonNull String threadPoolUID,
             int corePoolSize,
             int maximumPoolSize,
-            long keepAliveTime,
+            long keepAliveTimeSeconds,
             @NonNull TimeUnit timeUnit,
             @NonNull BlockingQueue<Runnable> workQueue,
             @NonNull ThreadFactory threadFactory,
             @NonNull RejectedExecutionHandler rejectedExecHandler,
             long awaitTerminationMillis) {
-        super(corePoolSize, maximumPoolSize, keepAliveTime, timeUnit, workQueue,
+        super(corePoolSize, maximumPoolSize, keepAliveTimeSeconds, timeUnit, workQueue,
                 threadFactory, rejectedExecHandler);
 
 
