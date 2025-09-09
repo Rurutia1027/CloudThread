@@ -13,6 +13,8 @@
  */
 package com.aston.cloudthread.core.executor.support;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -166,6 +168,7 @@ public enum BlockingQueueTypeEnum {
     };
 
 
+    @Getter
     private final String name;
 
     BlockingQueueTypeEnum(String name) {
