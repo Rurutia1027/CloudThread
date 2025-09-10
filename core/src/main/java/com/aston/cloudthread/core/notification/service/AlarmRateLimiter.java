@@ -25,20 +25,20 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AlarmRateLimiter {
     /**
-     * Alarm record cache. Key format: threadPoolId + "|" + alarmType
+     * Alarm record cache. Key format: threadPoolUID + "|" + alarmType
      */
     private static final Map<String, Long> ALARM_RECORD = new ConcurrentHashMap<>();
 
     /**
      * Checks whether an alarm is allowed to be sent based on the configured interval.
      *
-     * @param threadPoolId    Thread pool ID
+     * @param threadPoolUID    Thread pool ID
      * @param alarmType       Type of the alarm
      * @param intervalMinutes Minimum interval between alarms in minutes
      * @return true if sending is allowed; false if it should be suppressed
      */
-    public static boolean allowAlarm(String threadPoolId, String alarmType, int intervalMinutes) {
-        String key = buildKey(threadPoolId, alarmType);
+    public static boolean allowAlarm(String threadPoolUID, String alarmType, int intervalMinutes) {
+        String key = buildKey(threadPoolUID, alarmType);
         long currentTime = System.currentTimeMillis();
 
         return ALARM_RECORD.compute(key, (k, lastTime) -> {
@@ -49,7 +49,7 @@ public class AlarmRateLimiter {
         }) == currentTime; // Equal to current time means sending is allowed
     }
 
-    private static String buildKey(String threadPoolId, String alarmType) {
-        return threadPoolId + "|" + alarmType;
+    private static String buildKey(String threadPoolUID, String alarmType) {
+        return threadPoolUID + "|" + alarmType;
     }
 }

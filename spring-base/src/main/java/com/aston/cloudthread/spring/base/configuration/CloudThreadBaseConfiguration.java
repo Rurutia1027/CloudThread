@@ -17,6 +17,9 @@ import com.aston.cloudthread.core.alarm.ThreadPoolAlarmChecker;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
 import com.aston.cloudthread.core.monitor.ThreadPoolMonitor;
 import com.aston.cloudthread.core.notification.service.NotifierDispatcher;
+import com.aston.cloudthread.spring.base.support.ApplicationContextHolder;
+import com.aston.cloudthread.spring.base.support.CloudThreadBeanPostProcessor;
+import com.aston.cloudthread.spring.base.support.SpringPropertiesLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -26,26 +29,26 @@ import org.springframework.context.annotation.DependsOn;
  */
 @Configuration
 public class CloudThreadBaseConfiguration {
-//    @Bean
-//    public ApplicationContextHolder applicationContextHolder() {
-//        return new ApplicationContextHolder();
-//    }
-//
-//    @Bean
-//    @DependsOn("applicationContextHolder")
-//    public OneThreadBeanPostProcessor oneThreadBeanPostProcessor(BootstrapConfigProperties properties) {
-//        return new OneThreadBeanPostProcessor(properties);
-//    }
-//
+    @Bean
+    public ApplicationContextHolder applicationContextHolder() {
+        return new ApplicationContextHolder();
+    }
+
+    @Bean
+    @DependsOn("applicationContextHolder")
+    public CloudThreadBeanPostProcessor cloudThreadBeanPostProcessor(BootstrapConfigProperties properties) {
+        return new CloudThreadBeanPostProcessor(properties);
+    }
+
 @Bean
 public NotifierDispatcher notifierDispatcher() {
     return new NotifierDispatcher();
 }
-//
-//    @Bean
-//    public SpringPropertiesLoader springPropertiesLoader() {
-//        return new SpringPropertiesLoader();
-//    }
+
+    @Bean
+    public SpringPropertiesLoader springPropertiesLoader() {
+        return new SpringPropertiesLoader();
+    }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public ThreadPoolAlarmChecker threadPoolAlarmChecker(NotifierDispatcher notifierDispatcher) {

@@ -28,7 +28,7 @@ public class ThreadPoolConfigChangeDTO {
     /**
      * Thread pool unique id (UID)
      */
-    private String threadPoolId;
+    private String threadPoolUID;
 
     /**
      * Application active profile

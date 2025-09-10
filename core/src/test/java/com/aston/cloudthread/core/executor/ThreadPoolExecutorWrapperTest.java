@@ -43,7 +43,7 @@ class ThreadPoolExecutorWrapperTest {
         );
 
         props = ThreadPoolExecutorProperties.builder()
-                .threadPoolId(executor.getThreadPoolUID())
+                .threadPoolUID(executor.getThreadPoolUID())
                 .coolPoolSize(1)
                 .maximumPoolSize(1)
                 .queueCapacity(2)

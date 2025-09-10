@@ -30,7 +30,7 @@ class ThreadPoolExecutorPropertiesTest {
                 new ThreadPoolExecutorProperties.AlarmConfig(true, 90, 70);
 
         ThreadPoolExecutorProperties props = ThreadPoolExecutorProperties.builder()
-                .threadPoolId("pool-1")
+                .threadPoolUID("pool-1")
                 .coolPoolSize(2)
                 .maximumPoolSize(4)
                 .queueCapacity(100)
@@ -42,7 +42,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .alarm(alarmConfig)
                 .build();
 
-        assertEquals("pool-1", props.getThreadPoolId());
+        assertEquals("pool-1", props.getThreadPoolUID());
         assertEquals(2, props.getCoolPoolSize());
         assertEquals(4, props.getMaximumPoolSize());
         assertEquals(100, props.getQueueCapacity());
@@ -55,7 +55,7 @@ class ThreadPoolExecutorPropertiesTest {
     @Test
     void testChainedSetters() {
         ThreadPoolExecutorProperties props = new ThreadPoolExecutorProperties()
-                .setThreadPoolId("pool-2")
+                .setThreadPoolUID("pool-2")
                 .setCoolPoolSize(1)
                 .setMaximumPoolSize(2)
                 .setQueueCapacity(10)
@@ -64,7 +64,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .setKeeAliveTimeSeconds(30L)
                 .setAllowCoreThreadTimeout(false);
 
-        assertEquals("pool-2", props.getThreadPoolId());
+        assertEquals("pool-2", props.getThreadPoolUID());
         assertEquals(1, props.getCoolPoolSize());
         assertEquals(2, props.getMaximumPoolSize());
         assertEquals(10, props.getQueueCapacity());
@@ -91,12 +91,12 @@ class ThreadPoolExecutorPropertiesTest {
     @Test
     void testEqualsAndHashCode() {
         ThreadPoolExecutorProperties props1 = ThreadPoolExecutorProperties.builder()
-                .threadPoolId("pool-x")
+                .threadPoolUID("pool-x")
                 .coolPoolSize(1)
                 .build();
 
         ThreadPoolExecutorProperties props2 = ThreadPoolExecutorProperties.builder()
-                .threadPoolId("pool-x")
+                .threadPoolUID("pool-x")
                 .coolPoolSize(1)
                 .build();
 
@@ -107,7 +107,7 @@ class ThreadPoolExecutorPropertiesTest {
     @Test
     void testToStringNotNull() {
         ThreadPoolExecutorProperties props = ThreadPoolExecutorProperties.builder()
-                .threadPoolId("pool-y")
+                .threadPoolUID("pool-y")
                 .build();
 
         assertNotNull(props.toString());

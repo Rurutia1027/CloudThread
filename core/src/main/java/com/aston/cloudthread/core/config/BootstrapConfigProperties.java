@@ -13,10 +13,13 @@
  */
 package com.aston.cloudthread.core.config;
 
+import com.aston.cloudthread.core.executor.ThreadPoolExecutorProperties;
 import com.aston.cloudthread.core.parser.ConfigFileTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * Properties of CloudThread config center
@@ -138,6 +141,11 @@ public class BootstrapConfigProperties {
          */
         private NotifyConfig notifyConfig;
     }
+
+    /**
+     * Thread pool properties collection
+     */
+    private List<ThreadPoolExecutorProperties> executors;
 
     @Data
     public static class NotifyPlatformsConfig {
