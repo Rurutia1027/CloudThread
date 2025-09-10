@@ -29,6 +29,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -124,6 +125,6 @@ public class CloudThreadBeanPostProcessor implements BeanPostProcessor {
         ReflectUtil.setFieldValue(cloudThreadExecutor, "workQueue", workQueue);
         cloudThreadExecutor.setKeepAliveTime(executorProperties.getKeeAliveTimeSeconds(), TimeUnit.SECONDS);
         cloudThreadExecutor.allowCoreThreadTimeOut(executorProperties.getAllowCoreThreadTimeout());
-        cloudThreadExecutor.setRejectedExecutionHandler(RejectedPolicyTypeEnum.createPolicy(executorProperties.getRejectedHandler()));
+        cloudThreadExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
     }
 }

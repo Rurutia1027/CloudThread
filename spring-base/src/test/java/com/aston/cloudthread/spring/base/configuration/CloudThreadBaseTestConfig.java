@@ -15,8 +15,12 @@ package com.aston.cloudthread.spring.base.configuration;
 
 import com.aston.cloudthread.core.alarm.ThreadPoolAlarmChecker;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
+import com.aston.cloudthread.core.executor.CloudThreadExecutor;
+import com.aston.cloudthread.core.executor.ThreadPoolExecutorProperties;
+import com.aston.cloudthread.core.executor.support.BlockingQueueTypeEnum;
 import com.aston.cloudthread.core.monitor.ThreadPoolMonitor;
 import com.aston.cloudthread.core.notification.service.NotifierDispatcher;
+import com.aston.cloudthread.spring.base.CloudDynamicThreadPool;
 import com.aston.cloudthread.spring.base.support.ApplicationContextHolder;
 import com.aston.cloudthread.spring.base.support.CloudThreadBeanPostProcessor;
 import com.aston.cloudthread.spring.base.support.SpringPropertiesLoader;
@@ -25,6 +29,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 
 import java.util.Collections;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @TestConfiguration
 public class CloudThreadBaseTestConfig {
@@ -42,7 +50,17 @@ public class CloudThreadBaseTestConfig {
     @Bean
     public BootstrapConfigProperties bootstrapConfigProperties() {
         BootstrapConfigProperties props = new BootstrapConfigProperties();
-        props.setExecutors(Collections.emptyList());
+        ThreadPoolExecutorProperties executorProps = new ThreadPoolExecutorProperties();
+        executorProps.setThreadPoolUID("dynamic-pool");
+        executorProps.setCoolPoolSize(2);
+        executorProps.setMaximumPoolSize(4);
+        executorProps.setWorkingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.getName());
+        executorProps.setQueueCapacity(100);
+        executorProps.setKeeAliveTimeSeconds(60L);
+        executorProps.setAllowCoreThreadTimeout(false);
+        executorProps.setRejectedHandler("ABORT_POLICY");
+
+        props.setExecutors(Collections.singletonList(executorProps));
         return props;
     }
 
@@ -85,5 +103,19 @@ public class CloudThreadBaseTestConfig {
     @Bean(initMethod = "start", destroyMethod = "stop")
     public ThreadPoolMonitor threadPoolMonitor() {
         return new ThreadPoolMonitor();
+    }
+
+    @Bean
+    @CloudDynamicThreadPool
+    public CloudThreadExecutor dynamicExecutor() {
+        return new CloudThreadExecutor(
+                "dynamic-pool",
+                2, 4, 60,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.AbortPolicy(),
+                1000
+        );
     }
 }

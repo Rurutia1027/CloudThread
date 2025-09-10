@@ -16,7 +16,8 @@ package com.aston.cloudthread.spring.base.support;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
 import com.aston.cloudthread.core.executor.CloudThreadExecutor;
 import com.aston.cloudthread.core.executor.CloudThreadRegistry;
-import com.aston.cloudthread.spring.base.CloudDynamicThreadPool;
+import com.aston.cloudthread.core.executor.ThreadPoolExecutorProperties;
+import com.aston.cloudthread.core.executor.support.BlockingQueueTypeEnum;
 import com.aston.cloudthread.spring.base.configuration.CloudThreadBaseConfiguration;
 import com.aston.cloudthread.spring.base.configuration.CloudThreadBaseTestConfig;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +25,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -41,13 +42,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(classes = {CloudThreadBaseConfiguration.class, CloudThreadBaseTestConfig.class},
         properties = {"spring.main.allow-bean-definition-overriding=true"})
-
 class CloudThreadBeanPostProcessorTest {
     @Autowired
     private CloudThreadBeanPostProcessor postProcessor;
 
     @Autowired
     private BootstrapConfigProperties props;
+
+    @Autowired
+    private CloudThreadExecutor dynamicExecutor;
 
     @BeforeEach
     void setup() {
@@ -59,6 +62,7 @@ class CloudThreadBeanPostProcessorTest {
     void initOK() {
         assertNotNull(postProcessor);
         assertNotNull(props);
+        assertNotNull(dynamicExecutor);
     }
 
     @Test
@@ -86,6 +90,42 @@ class CloudThreadBeanPostProcessorTest {
         // Should not be registered in registry
         assertTrue(CloudThreadRegistry.getAllWrappers().isEmpty());
     }
+
+//    @Test
+//    void testDynamicOverride() {
+//        // Configure override for dynamicExecutor
+//        ThreadPoolExecutorProperties overrideProps = ThreadPoolExecutorProperties.builder()
+//                .threadPoolUID("dynamic-pool")
+//                .coolPoolSize(5)
+//                .maximumPoolSize(10)
+//                .queueCapacity(20)
+//                .workingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.name())
+//                .build();
+//        props.setExecutors(Collections.singletonList(overrideProps));
+//
+//        // process bean (simulate Spring post-processing)
+//        postProcessor.postProcessAfterInitialization(dynamicExecutor, "dynamicExecutor");
+//
+//        // verify the executor configuration is overridden dynamically
+//        assertEquals(5, dynamicExecutor.getCorePoolSize());
+//        assertEquals(10, dynamicExecutor.getMaximumPoolSize());
+//        assertEquals(20, dynamicExecutor.getQueue().remainingCapacity() + dynamicExecutor.getQueue().size());
+//        assertNotNull(CloudThreadRegistry.getWrapper("dynamic-pool"));
+//    }
+
+//    @Test
+//    void testDynamicOverrideWithInvalidConfigThrows() {
+//        ThreadPoolExecutorProperties badConfig = new ThreadPoolExecutorProperties();
+//        badConfig.setThreadPoolUID("dynamic-pool");
+//        badConfig.setCoolPoolSize(10); // > max pool size
+//        badConfig.setMaximumPoolSize(5);
+//        props.setExecutors(Collections.singletonList(badConfig));
+//
+//        RuntimeException ex = assertThrows(RuntimeException.class,
+//                () -> postProcessor.postProcessAfterInitialization(dynamicExecutor, "dynamicExecutor"));
+//
+//        assertTrue(ex.getMessage().contains("must be smaller than"));
+//    }
 
     private CloudThreadExecutor newExecutor(String tUID, int queueCapacity,
                                             RejectedExecutionHandler handler,
