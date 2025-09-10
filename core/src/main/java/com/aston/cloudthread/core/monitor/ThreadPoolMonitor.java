@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tag;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Getter
+@Setter
 public class ThreadPoolMonitor {
     private ScheduledExecutorService scheduler;
     private Map<String, ThreadPoolRuntimeContext> micrometerMonitorCache;
@@ -112,29 +114,29 @@ public class ThreadPoolMonitor {
         }
     }
 
-    public void micrometerMonitor(ThreadPoolRuntimeContext runtimeContext) {
-        String threadPoolUID = runtimeContext.getThreadPoolUID();
+    public void micrometerMonitor(ThreadPoolRuntimeContext ctx) {
+        String threadPoolUID = ctx.getThreadPoolUID();
         ThreadPoolRuntimeContext existingRuntimeInfo = micrometerMonitorCache.get(threadPoolUID);
         if (existingRuntimeInfo != null) {
-            BeanUtil.copyProperties(runtimeContext, existingRuntimeInfo);
+            BeanUtil.copyProperties(ctx, existingRuntimeInfo);
         } else {
-            micrometerMonitorCache.put(threadPoolUID, runtimeContext);
+            micrometerMonitorCache.put(threadPoolUID, ctx);
         }
 
         Iterable<Tag> tags = CollectionUtil.newArrayList(
                 Tag.of(DYNAMIC_THREAD_POOL_ID_TAG, threadPoolUID),
                 Tag.of(APPLICATION_NAME_TAG, ApplicationProperties.getApplicationName()));
 
-        Metrics.gauge(metricName("core.size"), tags, runtimeContext, ThreadPoolRuntimeContext::getCorePoolSize);
-        Metrics.gauge(metricName("maximum.size"), tags, runtimeContext, ThreadPoolRuntimeContext::getMaximumPoolSize);
-        Metrics.gauge(metricName("current.size"), tags, runtimeContext, ThreadPoolRuntimeContext::getActivePoolSize);
-        Metrics.gauge(metricName("largest.size"), tags, runtimeContext, ThreadPoolRuntimeContext::getLargestPoolSize);
-        Metrics.gauge(metricName("active.size"), tags, runtimeContext, ThreadPoolRuntimeContext::getActivePoolSize);
-        Metrics.gauge(metricName("queue.size"), tags, runtimeContext, ThreadPoolRuntimeContext::getWorkQueueSize);
-        Metrics.gauge(metricName("queue.capacity"), tags, runtimeContext, ThreadPoolRuntimeContext::getWorkQueueCapacity);
-        Metrics.gauge(metricName("queue.remaining.capacity"), tags, runtimeContext, ThreadPoolRuntimeContext::getWorkQueueRemainingCapacity);
-        Metrics.gauge(metricName("completed.task.count"), tags, runtimeContext, ThreadPoolRuntimeContext::getCompletedTaskCount);
-        Metrics.gauge(metricName("reject.count"), tags, runtimeContext, ThreadPoolRuntimeContext::getRejectCount);
+        Metrics.gauge(metricName("core.size"), tags, ctx, ThreadPoolRuntimeContext::getCorePoolSize);
+        Metrics.gauge(metricName("maximum.size"), tags, ctx, ThreadPoolRuntimeContext::getMaximumPoolSize);
+        Metrics.gauge(metricName("current.size"), tags, ctx, ThreadPoolRuntimeContext::getActivePoolSize);
+        Metrics.gauge(metricName("largest.size"), tags, ctx, ThreadPoolRuntimeContext::getLargestPoolSize);
+        Metrics.gauge(metricName("active.size"), tags, ctx, ThreadPoolRuntimeContext::getActivePoolSize);
+        Metrics.gauge(metricName("queue.size"), tags, ctx, ThreadPoolRuntimeContext::getWorkQueueSize);
+        Metrics.gauge(metricName("queue.capacity"), tags, ctx, ThreadPoolRuntimeContext::getWorkQueueCapacity);
+        Metrics.gauge(metricName("queue.remaining.capacity"), tags, ctx, ThreadPoolRuntimeContext::getWorkQueueRemainingCapacity);
+        Metrics.gauge(metricName("completed.task.count"), tags, ctx, ThreadPoolRuntimeContext::getCompletedTaskCount);
+        Metrics.gauge(metricName("reject.count"), tags, ctx, ThreadPoolRuntimeContext::getRejectCount);
     }
 
     private String metricName(String name) {
