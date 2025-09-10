@@ -20,7 +20,6 @@ import com.aston.cloudthread.core.executor.CloudThreadExecutor;
 import com.aston.cloudthread.core.executor.CloudThreadRegistry;
 import com.aston.cloudthread.core.executor.ThreadPoolExecutorProperties;
 import com.aston.cloudthread.core.executor.support.BlockingQueueTypeEnum;
-import com.aston.cloudthread.core.executor.support.RejectedPolicyTypeEnum;
 import com.aston.cloudthread.spring.base.CloudDynamicThreadPool;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

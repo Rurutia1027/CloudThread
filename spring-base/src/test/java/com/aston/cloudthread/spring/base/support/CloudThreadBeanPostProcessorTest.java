@@ -91,41 +91,43 @@ class CloudThreadBeanPostProcessorTest {
         assertTrue(CloudThreadRegistry.getAllWrappers().isEmpty());
     }
 
-//    @Test
-//    void testDynamicOverride() {
-//        // Configure override for dynamicExecutor
-//        ThreadPoolExecutorProperties overrideProps = ThreadPoolExecutorProperties.builder()
-//                .threadPoolUID("dynamic-pool")
-//                .coolPoolSize(5)
-//                .maximumPoolSize(10)
-//                .queueCapacity(20)
-//                .workingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.name())
-//                .build();
-//        props.setExecutors(Collections.singletonList(overrideProps));
-//
-//        // process bean (simulate Spring post-processing)
-//        postProcessor.postProcessAfterInitialization(dynamicExecutor, "dynamicExecutor");
-//
-//        // verify the executor configuration is overridden dynamically
-//        assertEquals(5, dynamicExecutor.getCorePoolSize());
-//        assertEquals(10, dynamicExecutor.getMaximumPoolSize());
-//        assertEquals(20, dynamicExecutor.getQueue().remainingCapacity() + dynamicExecutor.getQueue().size());
-//        assertNotNull(CloudThreadRegistry.getWrapper("dynamic-pool"));
-//    }
+    @Test
+    void testDynamicOverride() {
+        // Configure override for dynamicExecutor
+        ThreadPoolExecutorProperties overrideProps = ThreadPoolExecutorProperties.builder()
+                .threadPoolUID("dynamic-pool")
+                .coolPoolSize(5)
+                .maximumPoolSize(10)
+                .queueCapacity(20)
+                .workingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.getName())
+                .allowCoreThreadTimeout(true)
+                .keeAliveTimeSeconds(1000L)
+                .build();
+        props.setExecutors(Collections.singletonList(overrideProps));
 
-//    @Test
-//    void testDynamicOverrideWithInvalidConfigThrows() {
-//        ThreadPoolExecutorProperties badConfig = new ThreadPoolExecutorProperties();
-//        badConfig.setThreadPoolUID("dynamic-pool");
-//        badConfig.setCoolPoolSize(10); // > max pool size
-//        badConfig.setMaximumPoolSize(5);
-//        props.setExecutors(Collections.singletonList(badConfig));
-//
-//        RuntimeException ex = assertThrows(RuntimeException.class,
-//                () -> postProcessor.postProcessAfterInitialization(dynamicExecutor, "dynamicExecutor"));
-//
-//        assertTrue(ex.getMessage().contains("must be smaller than"));
-//    }
+        // process bean (simulate Spring post-processing)
+        postProcessor.postProcessAfterInitialization(dynamicExecutor, "dynamicExecutor");
+
+        // verify the executor configuration is overridden dynamically
+        assertEquals(5, dynamicExecutor.getCorePoolSize());
+        assertEquals(10, dynamicExecutor.getMaximumPoolSize());
+        assertEquals(20, dynamicExecutor.getQueue().remainingCapacity() + dynamicExecutor.getQueue().size());
+        assertNotNull(CloudThreadRegistry.getWrapper("dynamic-pool"));
+    }
+
+    @Test
+    void testDynamicOverrideWithInvalidConfigThrows() {
+        ThreadPoolExecutorProperties badConfig = new ThreadPoolExecutorProperties();
+        badConfig.setThreadPoolUID("dynamic-pool");
+        badConfig.setCoolPoolSize(10); // > max pool size
+        badConfig.setMaximumPoolSize(5);
+        props.setExecutors(Collections.singletonList(badConfig));
+
+        RuntimeException ex = assertThrows(RuntimeException.class,
+                () -> postProcessor.postProcessAfterInitialization(dynamicExecutor, "dynamicExecutor"));
+
+        assertTrue(ex.getMessage().contains("must be smaller than"));
+    }
 
     private CloudThreadExecutor newExecutor(String tUID, int queueCapacity,
                                             RejectedExecutionHandler handler,
