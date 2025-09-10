@@ -110,13 +110,17 @@ public class CloudThreadBeanPostProcessor implements BeanPostProcessor {
             cloudThreadExecutor.setCorePoolSize(remoteCorePoolSize);
             cloudThreadExecutor.setMaximumPoolSize(remoteMaximumPoolSize);
         }
-        // 阻塞队列没有常规 set 方法，所以使用反射赋值
+
+        // The blocking queue does not provide a standard setter method, so we use reflection to set it.
         BlockingQueue workQueue =
                 BlockingQueueTypeEnum.createBlockingQueue(executorProperties.getWorkingQueue(), executorProperties.getQueueCapacity());
-        // Java 9+ 的模块系统（JPMS）默认禁止通过反射访问 JDK 内部 API 的私有字段，所以需要配置开放反射权限
-        // 在启动命令中增加以下参数，显式开放 java.util.concurrent 包
-        // IDE 中通过在 VM options 中添加参数：--add-opens=java.base/java.util.concurrent=ALL-UNNAMED
-        // 部署的时候，在启动脚本（如 java -jar 命令）中加入该参数：java -jar --add-opens=java.base/java.util.concurrent=ALL-UNNAMED your-app.jar
+
+        // In Java 9+ module system (JPMS), accessing private fields of JDK internal APIs via reflection is blocked by default.
+        // Therefore, we need to explicitly open reflection permissions.
+        // Add the following parameter in the startup command to open java.util.concurrent package:
+        // IDE: add VM option: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+        // Deployment: in the startup script (e.g., java -jar), add:
+        // java -jar --add-opens=java.base/java.util.concurrent=ALL-UNNAMED your-app.jar
         ReflectUtil.setFieldValue(cloudThreadExecutor, "workQueue", workQueue);
         cloudThreadExecutor.setKeepAliveTime(executorProperties.getKeeAliveTimeSeconds(), TimeUnit.SECONDS);
         cloudThreadExecutor.allowCoreThreadTimeOut(executorProperties.getAllowCoreThreadTimeout());

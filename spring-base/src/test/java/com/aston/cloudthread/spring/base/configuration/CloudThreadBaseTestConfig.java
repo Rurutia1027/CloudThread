@@ -20,41 +20,68 @@ import com.aston.cloudthread.core.notification.service.NotifierDispatcher;
 import com.aston.cloudthread.spring.base.support.ApplicationContextHolder;
 import com.aston.cloudthread.spring.base.support.CloudThreadBeanPostProcessor;
 import com.aston.cloudthread.spring.base.support.SpringPropertiesLoader;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-/**
- * CloudThreadPool the Dynamic Thread Pool Spring Configuration class.
- */
-@Configuration
-public class CloudThreadBaseConfiguration {
+import java.util.Collections;
+
+@TestConfiguration
+public class CloudThreadBaseTestConfig {
+    /**
+     * Provide a test-scoped ApplicationContextHolder
+     */
     @Bean
     public ApplicationContextHolder applicationContextHolder() {
         return new ApplicationContextHolder();
     }
 
+    /**
+     * Provide a dummy BootstrapConfigProperties for testing
+     */
     @Bean
-    @DependsOn("applicationContextHolder")
-    public CloudThreadBeanPostProcessor cloudThreadBeanPostProcessor(BootstrapConfigProperties properties) {
-        return new CloudThreadBeanPostProcessor(properties);
+    public BootstrapConfigProperties bootstrapConfigProperties() {
+        BootstrapConfigProperties props = new BootstrapConfigProperties();
+        props.setExecutors(Collections.emptyList());
+        return props;
     }
 
+    /**
+     * Post-processor bean for dynamic thread pools
+     */
+    @Bean
+    @DependsOn("applicationContextHolder")
+    public CloudThreadBeanPostProcessor cloudThreadBeanPostProcessor(BootstrapConfigProperties props) {
+        return new CloudThreadBeanPostProcessor(props);
+    }
+
+    /**
+     * Notification dispatcher (dummy implementation can be injected)
+     */
     @Bean
     public NotifierDispatcher notifierDispatcher() {
         return new NotifierDispatcher();
     }
 
+    /**
+     * Load Spring application properties
+     */
     @Bean
     public SpringPropertiesLoader springPropertiesLoader() {
         return new SpringPropertiesLoader();
     }
 
+    /**
+     * Thread pool alarm checker, test-safe start/stop
+     */
     @Bean(initMethod = "start", destroyMethod = "stop")
     public ThreadPoolAlarmChecker threadPoolAlarmChecker(NotifierDispatcher notifierDispatcher) {
         return new ThreadPoolAlarmChecker(notifierDispatcher);
     }
 
+    /**
+     * Thread pool monitor, test-safe start/stop
+     */
     @Bean(initMethod = "start", destroyMethod = "stop")
     public ThreadPoolMonitor threadPoolMonitor() {
         return new ThreadPoolMonitor();
