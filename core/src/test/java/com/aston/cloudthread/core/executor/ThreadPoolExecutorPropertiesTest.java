@@ -25,7 +25,7 @@ class ThreadPoolExecutorPropertiesTest {
     @Test
     void testBuilderCreatePropertiesCorrectly() {
         ThreadPoolExecutorProperties.NotifyConfig notifyConfig =
-                new ThreadPoolExecutorProperties.NotifyConfig("user1,user2", 10L);
+                new ThreadPoolExecutorProperties.NotifyConfig("user1,user2", 10);
         ThreadPoolExecutorProperties.AlarmConfig alarmConfig =
                 new ThreadPoolExecutorProperties.AlarmConfig(true, 90, 70);
 
@@ -39,7 +39,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .keeAliveTimeSeconds(60L)
                 .allowCoreThreadTimeout(true)
                 .notify(notifyConfig)
-                .alarmConfig(alarmConfig)
+                .alarm(alarmConfig)
                 .build();
 
         assertEquals("pool-1", props.getThreadPoolId());
@@ -50,7 +50,7 @@ class ThreadPoolExecutorPropertiesTest {
         assertEquals(60L, props.getKeeAliveTimeSeconds());
         assertTrue(props.getAllowCoreThreadTimeout());
         assertEquals(notifyConfig, props.getNotify());
-        assertEquals(alarmConfig, props.getAlarmConfig());
+        assertEquals(alarmConfig, props.getAlarm());
     }
     @Test
     void testChainedSetters() {
@@ -80,7 +80,7 @@ class ThreadPoolExecutorPropertiesTest {
                 new ThreadPoolExecutorProperties.NotifyConfig();
         ThreadPoolExecutorProperties.AlarmConfig alarmConfig =
                 new ThreadPoolExecutorProperties.AlarmConfig();
-        assertEquals(5L, notifyConfig.getIntervalMinutes());
+        assertEquals(5, notifyConfig.getIntervalMinutes());
         assertNull(notifyConfig.getSubscribers());
 
         assertTrue(alarmConfig.getEnable());

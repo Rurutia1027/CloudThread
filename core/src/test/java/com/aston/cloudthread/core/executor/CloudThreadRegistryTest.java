@@ -70,8 +70,8 @@ class CloudThreadRegistryTest {
                 .rejectedHandler("AbortPolicy")
                 .keeAliveTimeSeconds(1L)
                 .allowCoreThreadTimeout(false)
-                .notify(new ThreadPoolExecutorProperties.NotifyConfig("dev-team", 10L))
-                .alarmConfig(new ThreadPoolExecutorProperties.AlarmConfig(true, 80, 80))
+                .notify(new ThreadPoolExecutorProperties.NotifyConfig("dev-team", 10))
+                .alarm(new ThreadPoolExecutorProperties.AlarmConfig(true, 80, 80))
                 .build();
 
         props2 = ThreadPoolExecutorProperties.builder()
@@ -83,8 +83,8 @@ class CloudThreadRegistryTest {
                 .rejectedHandler("AbortPolicy")
                 .keeAliveTimeSeconds(1L)
                 .allowCoreThreadTimeout(true)
-                .notify(new ThreadPoolExecutorProperties.NotifyConfig("teamB", 10L))
-                .alarmConfig(new ThreadPoolExecutorProperties.AlarmConfig(true, 70, 70))
+                .notify(new ThreadPoolExecutorProperties.NotifyConfig("teamB", 10))
+                .alarm(new ThreadPoolExecutorProperties.AlarmConfig(true, 70, 70))
                 .build();
     }
 
