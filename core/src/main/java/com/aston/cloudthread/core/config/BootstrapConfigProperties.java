@@ -51,6 +51,11 @@ public class BootstrapConfigProperties {
     private ConfigFileTypeEnum configFileType;
 
     /**
+     * Notification platforms config
+     */
+    private NotifyPlatformsConfig notifyPlatforms;
+
+    /**
      * Monitor config
      */
     private MonitorConfig monitorConfig = new MonitorConfig();
@@ -132,6 +137,20 @@ public class BootstrapConfigProperties {
          * Notification config
          */
         private NotifyConfig notifyConfig;
+    }
+
+    @Data
+    public static class NotifyPlatformsConfig {
+
+        /**
+         * Notification platform, discord, slack, teams
+         */
+        private String platform;
+
+        /**
+         * Notification web hook url address
+         */
+        private String url;
     }
 
     @Data
