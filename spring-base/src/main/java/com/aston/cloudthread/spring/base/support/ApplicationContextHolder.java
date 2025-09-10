@@ -13,6 +13,7 @@
  */
 package com.aston.cloudthread.spring.base.support;
 
+import com.aston.cloudthread.spring.base.CloudDynamicThreadPool;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -98,4 +99,7 @@ public class ApplicationContextHolder implements ApplicationContextAware {
         return CONTEXT;
     }
 
+    public void setBeanAnnotation(String executorBean, CloudDynamicThreadPool annotation) {
+
+    }
 }
