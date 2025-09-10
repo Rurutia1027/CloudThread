@@ -40,10 +40,10 @@ public class CloudThreadBaseConfiguration {
         return new CloudThreadBeanPostProcessor(properties);
     }
 
-@Bean
-public NotifierDispatcher notifierDispatcher() {
-    return new NotifierDispatcher();
-}
+    @Bean
+    public NotifierDispatcher notifierDispatcher() {
+        return new NotifierDispatcher();
+    }
 
     @Bean
     public SpringPropertiesLoader springPropertiesLoader() {
