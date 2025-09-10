@@ -62,7 +62,7 @@ class BlockingQueueTypeEnumTest {
     void testCreateSynchronousQueue() throws InterruptedException {
         BlockingQueue<Integer> queue = BlockingQueueTypeEnum.createBlockingQueue("SynchronousQueue", null);
         assertNotNull(queue);
-        // SynchronousQueue no capacity，offer return false immediately
+        // SynchronousQueue no capacity, offer return false immediately
         assertFalse(queue.offer(1));
     }
 

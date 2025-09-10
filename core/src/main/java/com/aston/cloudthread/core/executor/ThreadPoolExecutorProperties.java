@@ -61,7 +61,7 @@ public class ThreadPoolExecutorProperties {
     /**
      * Thread idle alive time in seconds.
      */
-    private Long keeAliveTime;
+    private Long keeAliveTimeSeconds;
 
     /**
      * Is core thread timeout allowed?
@@ -71,12 +71,12 @@ public class ThreadPoolExecutorProperties {
     /**
      * Notification configuration.
      */
-    private NotifyConfig notifyConfig;
+    private NotifyConfig notify;
 
     /**
      * Alert configuration.
      */
-    private AlertConfig alertConfig;
+    private AlarmConfig alarm;
 
     @Data
     @NoArgsConstructor
@@ -89,15 +89,15 @@ public class ThreadPoolExecutorProperties {
 
 
         /**
-         * Notification intervals in seconds.
+         * Notification intervals in minutes.
          */
-        private Long intervals = 5L;
+        private Integer intervalMinutes = 5;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlertConfig {
+    public static class AlarmConfig {
         /**
          * Alert enabled in default or not.
          */

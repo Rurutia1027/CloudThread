@@ -49,7 +49,7 @@ class ThreadPoolExecutorWrapperTest {
                 .queueCapacity(2)
                 .workingQueue("ArrayBlockingQueue")
                 .rejectedHandler("AbortPolicy")
-                .keeAliveTime(1L)
+                .keeAliveTimeSeconds(1L)
                 .allowCoreThreadTimeout(true)
                 .build();
     }
