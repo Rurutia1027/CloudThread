@@ -41,7 +41,7 @@ public class SlackMessageService implements NotifierService {
         String text = String.format(
                 "*[Thread Pool Configuration Change]*\nEnvironment: %s\nThread Pool ID: %s\nApplication: %s\nCore Threads: %s → %s\nMaximum Threads: %s → %s\nKeep-Alive Time: %s → %s\nQueue: %s\nQueue Capacity: %s → %s\nRejection Policy: %s → %s\nRecipients: %s\nUpdate Time: %s",
                 configChangeDTO.getActiveProfile().toUpperCase(),
-                configChangeDTO.getThreadPoolId(),
+                configChangeDTO.getThreadPoolUID(),
                 configChangeDTO.getIdentify() + ":" + configChangeDTO.getApplicationName(),
                 changes.get("corePoolSize").getBefore(), changes.get("corePoolSize").getAfter(),
                 changes.get("maximumPoolSize").getBefore(), changes.get("maximumPoolSize").getAfter(),

@@ -25,6 +25,7 @@
     </developers>
     <modules>
         <module>core</module>
+        <module>spring-base</module>
     </modules>
 
     <properties>

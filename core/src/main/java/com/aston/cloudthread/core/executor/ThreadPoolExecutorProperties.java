@@ -31,7 +31,7 @@ public class ThreadPoolExecutorProperties {
     /**
      * Global unique ID for thread pool.
      */
-    private String threadPoolId;
+    private String threadPoolUID;
 
     /**
      * Core thread pool size.

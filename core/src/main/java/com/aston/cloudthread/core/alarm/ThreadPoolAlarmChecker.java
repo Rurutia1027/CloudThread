@@ -151,7 +151,7 @@ public class ThreadPoolAlarmChecker {
      */
     private void checkRejectCount(ThreadPoolExecutorWrapper wrapper) {
         ThreadPoolExecutor executor = wrapper.getExecutor();
-        String threadPoolId = wrapper.getThreadPoolUID();
+        String threadPoolUID = wrapper.getThreadPoolUID();
 
         if (!(executor instanceof CloudThreadExecutor)) {
             return;
@@ -159,21 +159,21 @@ public class ThreadPoolAlarmChecker {
 
         CloudThreadExecutor oneThreadExecutor = (CloudThreadExecutor) executor;
         long currentRejectCount = oneThreadExecutor.getRejectCount().get();
-        long lastRejectCount = lastRejectCountMap.getOrDefault(threadPoolId, 0L);
+        long lastRejectCount = lastRejectCountMap.getOrDefault(threadPoolUID, 0L);
 
         if (currentRejectCount > lastRejectCount) {
             sendAlarmMessage("Reject", wrapper);
-            lastRejectCountMap.put(threadPoolId, currentRejectCount);
+            lastRejectCountMap.put(threadPoolUID, currentRejectCount);
         }
     }
 
     private void sendAlarmMessage(String alarmType, ThreadPoolExecutorWrapper holder) {
         ThreadPoolExecutorProperties properties = holder.getExecutorProperties();
-        String threadPoolId = holder.getThreadPoolUID();
+        String threadPoolUID = holder.getThreadPoolUID();
 
         ThreadPoolAlarmNotifyDTO alarm = ThreadPoolAlarmNotifyDTO.builder()
                 .alarmType(alarmType)
-                .threadPoolUID(threadPoolId)
+                .threadPoolUID(threadPoolUID)
                 .intervalMinutes(properties.getNotify().getIntervalMinutes())
                 .build();
 
