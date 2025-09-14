@@ -13,5 +13,45 @@
  */
 package com.aston.cloudthread.config.common.starter.configuration;
 
-public class CloudThreadBannerHandler {
+import cn.hutool.core.lang.ansi.AnsiColor;
+import cn.hutool.core.lang.ansi.AnsiStyle;
+import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.ansi.AnsiOutput;
+import org.springframework.boot.info.BuildProperties;
+
+@Slf4j
+public class CloudThreadBannerHandler implements InitializingBean {
+    private static final String DYNAMIC_THREAD_POOL = " :: CloudThread :: ";
+    private static final int STRAP_LINE_SIZE = 50;
+    private final String version;
+
+    public CloudThreadBannerHandler(BuildProperties buildProperties) {
+        this.version = buildProperties != null ? buildProperties.getVersion() : "";
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        String banner = """
+                 ,-----.,--.                 ,--. ,--------.,--.                              ,--. ,------.             ,--. 
+                '  .--./|  | ,---.,--.,--. ,-|  | '--.  .--'|  ,---. ,--.--. ,---.  ,--,--. ,-|  | |  .--. ',---. ,---. |  | 
+                |  |    |  || .-. |  ||  |' .-. |    |  |   |  .-.  ||  .--'| .-. :' ,-.  |' .-. | |  '--' | .-. | .-. ||  | 
+                '  '--'\\|  |' '-' '  ''  '\\ `-' |    |  |   |  | |  ||  |   \\   --.\\ '-'  |\\ `-' | |  | --'' '-' ' '-' '|  | 
+                 `-----'`--' `---' `----'  `---'     `--'   `--' `--'`--'    `----' `--`--' `---'  `--'     `---' `---' `--'  
+                """;
+
+        String bannerVersion = StrUtil.isNotEmpty(version) ? " (v" + version + ")" : "no version.";
+        StringBuilder padding = new StringBuilder();
+        while (padding.length() < STRAP_LINE_SIZE - (bannerVersion.length() + DYNAMIC_THREAD_POOL.length())) {
+            padding.append(" ");
+        }
+
+        System.out.println(AnsiOutput.toString(
+                banner,
+                AnsiColor.CYAN, DYNAMIC_THREAD_POOL, AnsiColor.DEFAULT,
+                padding.toString(), AnsiStyle.FAINT, bannerVersion,
+                "\n"
+        ));
+    }
 }

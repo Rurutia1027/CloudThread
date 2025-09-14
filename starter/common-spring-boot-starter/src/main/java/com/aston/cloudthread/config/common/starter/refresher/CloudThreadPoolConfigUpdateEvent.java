@@ -13,5 +13,18 @@
  */
 package com.aston.cloudthread.config.common.starter.refresher;
 
-public class ThreadPoolConfigUpdateEvent {
+import com.aston.cloudthread.core.config.BootstrapConfigProperties;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.context.ApplicationEvent;
+
+public class CloudThreadPoolConfigUpdateEvent extends ApplicationEvent {
+    @Getter
+    @Setter
+    private BootstrapConfigProperties bootstrapConfigProperties;
+
+    public CloudThreadPoolConfigUpdateEvent(Object source, BootstrapConfigProperties bootstrapConfigProperties) {
+        super(source);
+        this.bootstrapConfigProperties = bootstrapConfigProperties;
+    }
 }

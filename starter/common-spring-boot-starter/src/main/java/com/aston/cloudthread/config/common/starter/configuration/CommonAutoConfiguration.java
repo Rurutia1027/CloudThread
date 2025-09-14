@@ -16,14 +16,34 @@ package com.aston.cloudthread.config.common.starter.configuration;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
 import com.aston.cloudthread.spring.base.configuration.CloudThreadBaseConfiguration;
 import com.aston.cloudthread.spring.base.enable.MarkerConfiguration;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.info.BuildProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 
 @ConditionalOnBean(MarkerConfiguration.Marker.class)
 @Import(CloudThreadBaseConfiguration.class)
 @AutoConfigureAfter(CloudThreadBaseConfiguration.class)
 @ConditionalOnProperty(prefix = BootstrapConfigProperties.PREFIX, value = "enable", matchIfMissing = true, havingValue = "true")
 public class CommonAutoConfiguration {
+    @Bean
+    public BootstrapConfigProperties bootstrapConfigProperties(Environment env) {
+        BootstrapConfigProperties bootstrapConfigProperties = Binder.get(env)
+                .bind(BootstrapConfigProperties.PREFIX,
+                        Bindable.of(BootstrapConfigProperties.class))
+                .get();
+        BootstrapConfigProperties.setInstance(bootstrapConfigProperties);
+        return bootstrapConfigProperties;
+    }
+
+    @Bean
+    public CloudThreadBannerHandler cloudThreadBannerHandler(ObjectProvider<BuildProperties> buildProperties) {
+        return new CloudThreadBannerHandler(buildProperties.getIfAvailable()); 
+    }
 }

@@ -36,7 +36,7 @@ public class ThreadPoolExecutorProperties {
     /**
      * Core thread pool size.
      */
-    private Integer coolPoolSize;
+    private Integer corePoolSize;
 
     /**
      * Maximum of thread pool size.

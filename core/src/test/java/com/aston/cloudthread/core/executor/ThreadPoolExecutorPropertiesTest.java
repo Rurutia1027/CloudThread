@@ -31,7 +31,7 @@ class ThreadPoolExecutorPropertiesTest {
 
         ThreadPoolExecutorProperties props = ThreadPoolExecutorProperties.builder()
                 .threadPoolUID("pool-1")
-                .coolPoolSize(2)
+                .corePoolSize(2)
                 .maximumPoolSize(4)
                 .queueCapacity(100)
                 .workingQueue("ArrayBlockingQueue")
@@ -43,7 +43,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .build();
 
         assertEquals("pool-1", props.getThreadPoolUID());
-        assertEquals(2, props.getCoolPoolSize());
+        assertEquals(2, props.getCorePoolSize());
         assertEquals(4, props.getMaximumPoolSize());
         assertEquals(100, props.getQueueCapacity());
         assertEquals("ArrayBlockingQueue", props.getWorkingQueue());
@@ -56,7 +56,7 @@ class ThreadPoolExecutorPropertiesTest {
     void testChainedSetters() {
         ThreadPoolExecutorProperties props = new ThreadPoolExecutorProperties()
                 .setThreadPoolUID("pool-2")
-                .setCoolPoolSize(1)
+                .setCorePoolSize(1)
                 .setMaximumPoolSize(2)
                 .setQueueCapacity(10)
                 .setWorkingQueue("LinkedBlockingQueue")
@@ -65,7 +65,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .setAllowCoreThreadTimeout(false);
 
         assertEquals("pool-2", props.getThreadPoolUID());
-        assertEquals(1, props.getCoolPoolSize());
+        assertEquals(1, props.getCorePoolSize());
         assertEquals(2, props.getMaximumPoolSize());
         assertEquals(10, props.getQueueCapacity());
         assertEquals("LinkedBlockingQueue", props.getWorkingQueue());
@@ -92,12 +92,12 @@ class ThreadPoolExecutorPropertiesTest {
     void testEqualsAndHashCode() {
         ThreadPoolExecutorProperties props1 = ThreadPoolExecutorProperties.builder()
                 .threadPoolUID("pool-x")
-                .coolPoolSize(1)
+                .corePoolSize(1)
                 .build();
 
         ThreadPoolExecutorProperties props2 = ThreadPoolExecutorProperties.builder()
                 .threadPoolUID("pool-x")
-                .coolPoolSize(1)
+                .corePoolSize(1)
                 .build();
 
         assertEquals(props1, props2);
