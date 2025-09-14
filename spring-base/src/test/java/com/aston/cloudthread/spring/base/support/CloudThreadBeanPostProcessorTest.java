@@ -96,7 +96,7 @@ class CloudThreadBeanPostProcessorTest {
         // Configure override for dynamicExecutor
         ThreadPoolExecutorProperties overrideProps = ThreadPoolExecutorProperties.builder()
                 .threadPoolUID("dynamic-pool")
-                .coolPoolSize(5)
+                .corePoolSize(5)
                 .maximumPoolSize(10)
                 .queueCapacity(20)
                 .workingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.getName())
@@ -119,7 +119,7 @@ class CloudThreadBeanPostProcessorTest {
     void testDynamicOverrideWithInvalidConfigThrows() {
         ThreadPoolExecutorProperties badConfig = new ThreadPoolExecutorProperties();
         badConfig.setThreadPoolUID("dynamic-pool");
-        badConfig.setCoolPoolSize(10); // > max pool size
+        badConfig.setCorePoolSize(10); // > max pool size
         badConfig.setMaximumPoolSize(5);
         props.setExecutors(Collections.singletonList(badConfig));
 

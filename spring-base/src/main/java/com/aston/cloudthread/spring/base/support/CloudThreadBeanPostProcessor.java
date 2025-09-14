@@ -97,7 +97,7 @@ public class CloudThreadBeanPostProcessor implements BeanPostProcessor {
      */
     private void overrideLocalThreadPoolConfig(ThreadPoolExecutorProperties executorProperties,
                                                CloudThreadExecutor cloudThreadExecutor) {
-        Integer remoteCorePoolSize = executorProperties.getCoolPoolSize();
+        Integer remoteCorePoolSize = executorProperties.getCorePoolSize();
         Integer remoteMaximumPoolSize = executorProperties.getMaximumPoolSize();
         Assert.isTrue(remoteCorePoolSize <= remoteMaximumPoolSize, "[remoteCorePoolSize] must " +
                 "be smaller than [remoteMaximumPoolSize]");

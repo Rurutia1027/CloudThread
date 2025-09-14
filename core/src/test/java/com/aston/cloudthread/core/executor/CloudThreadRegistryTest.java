@@ -63,7 +63,7 @@ class CloudThreadRegistryTest {
 
         props1 = ThreadPoolExecutorProperties.builder()
                 .threadPoolUID("pool-1")
-                .coolPoolSize(1)
+                .corePoolSize(1)
                 .maximumPoolSize(1)
                 .queueCapacity(2)
                 .workingQueue("ArrayBlockingQueue")
@@ -76,7 +76,7 @@ class CloudThreadRegistryTest {
 
         props2 = ThreadPoolExecutorProperties.builder()
                 .threadPoolUID("pool-2")
-                .coolPoolSize(2)
+                .corePoolSize(2)
                 .maximumPoolSize(4)
                 .queueCapacity(2)
                 .workingQueue("ArrayBlockingQueue")
@@ -153,7 +153,7 @@ class CloudThreadRegistryTest {
 
                 ThreadPoolExecutorProperties props =
                         ThreadPoolExecutorProperties.builder()
-                                .coolPoolSize(1)
+                                .corePoolSize(1)
                                 .threadPoolUID(executor.getThreadPoolUID())
                                 .allowCoreThreadTimeout(true)
                                 .maximumPoolSize(1)

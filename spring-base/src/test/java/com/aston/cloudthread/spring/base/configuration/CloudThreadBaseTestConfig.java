@@ -52,7 +52,7 @@ public class CloudThreadBaseTestConfig {
         BootstrapConfigProperties props = new BootstrapConfigProperties();
         ThreadPoolExecutorProperties executorProps = new ThreadPoolExecutorProperties();
         executorProps.setThreadPoolUID("dynamic-pool");
-        executorProps.setCoolPoolSize(2);
+        executorProps.setCorePoolSize(2);
         executorProps.setMaximumPoolSize(4);
         executorProps.setWorkingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.getName());
         executorProps.setQueueCapacity(100);
