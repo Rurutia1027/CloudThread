@@ -12,6 +12,7 @@
     <artifactId>cloudthread-starter</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>common-spring-boot-starter</module>
         <module>adapter</module>
         <module>config</module>
     </modules>
