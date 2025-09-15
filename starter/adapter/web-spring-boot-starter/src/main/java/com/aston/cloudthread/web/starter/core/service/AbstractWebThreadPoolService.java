@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.web.starter.core.executor;
+package com.aston.cloudthread.web.starter.core.service;
 
 import com.aston.cloudthread.spring.base.support.ApplicationContextHolder;
 import org.springframework.boot.ApplicationArguments;

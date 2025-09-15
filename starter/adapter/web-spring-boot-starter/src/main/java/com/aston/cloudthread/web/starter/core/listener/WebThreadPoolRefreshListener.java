@@ -21,7 +21,7 @@ import com.aston.cloudthread.core.notification.dto.WebThreadPoolConfigChangeDTO;
 import com.aston.cloudthread.core.notification.service.NotifierDispatcher;
 import com.aston.cloudthread.spring.base.support.ApplicationContextHolder;
 import com.aston.cloudthread.web.starter.core.config.WebThreadPoolConfig;
-import com.aston.cloudthread.web.starter.core.executor.WebThreadPoolService;
+import com.aston.cloudthread.web.starter.core.service.WebThreadPoolService;
 import com.aston.cloudthread.web.starter.core.metric.WebThreadPoolMetrics;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -52,7 +52,7 @@ public class WebThreadPoolRefreshListener implements ApplicationListener<CloudTh
      * update the thread pool and trigger a notification.
      *
      * @param event web thread pool config update event
-     *              </p>
+     * </p>
      */
     @Override
     public void onApplicationEvent(CloudThreadPoolConfigUpdateEvent event) {
