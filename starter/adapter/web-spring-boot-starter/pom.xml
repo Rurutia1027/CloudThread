@@ -5,26 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.aston.cloudthread</groupId>
-        <artifactId>cloudthread-starter</artifactId>
+        <artifactId>cloudthread-adapter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cloudthread-common-spring-boot-starter</artifactId>
+    <artifactId>cloudthread-web-spring-boot-starter</artifactId>
 
     <dependencies>
         <dependency>
+            <groupId>com.aston.cloudthread</groupId>
+            <artifactId>cloudthread-common-spring-boot-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.aston.cloudthread</groupId>
-            <artifactId>cloudthread-spring-base</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>
