@@ -5,14 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.aston.cloudthread</groupId>
-        <artifactId>cloudthread-all</artifactId>
+        <artifactId>cloudthread-adapter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cloudthread-starter</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>adapter</module>
-        <module>config</module>
-    </modules>
+    <artifactId>cloudthread-web-spring-boot-starter</artifactId>
+
 </project>

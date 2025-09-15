@@ -27,7 +27,6 @@
         <module>core</module>
         <module>spring-base</module>
         <module>starter</module>
-        <module>starter/common-spring-boot-starter</module>
     </modules>
 
     <properties>
