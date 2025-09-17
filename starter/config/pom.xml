@@ -12,5 +12,7 @@
     <artifactId>cloudthread-config</artifactId>
     <packaging>pom</packaging>
 
-    <modules></modules>
+    <modules>
+        <module>spring-cloud-config-spring-starter</module>
+    </modules>
 </project>
