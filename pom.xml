@@ -32,7 +32,7 @@
     <properties>
         <java.version>17</java.version>
         <spring-boot.version>3.0.7</spring-boot.version>
-        <spring-cloud.version>2022.0.3</spring-cloud.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
         <hutool-all.version>5.8.37</hutool-all.version>
         <jackson.version>2.16.2</jackson.version>
         <spotless-maven-plugin.version>2.22.1</spotless-maven-plugin.version>
@@ -66,13 +66,6 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool-all.version}</version>
-            </dependency>
-
-            <!-- Spring Cloud Config Client -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-config-client</artifactId>
-                <version>${spring-cloud.version}</version>
             </dependency>
 
             <!-- Kubernetes Config Integration -->
