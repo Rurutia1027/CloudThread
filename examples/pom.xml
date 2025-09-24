@@ -13,5 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>spring-cloud-config-starter-example</module>
+        <module>spring-cloud-config-server</module>
     </modules>
 </project>
