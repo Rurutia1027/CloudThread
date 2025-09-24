@@ -66,11 +66,13 @@ package com.aston.cloudthread.config;
  * <p>
  * Example modules under this package
  * <pre>
- *     com.aston.cloudthread.aws;
+ *     com.aston.cloudthread.aws; --> skip this one
  *     com.aston.cloudthread.k8s;
- *     com.aston.cloudthread.consul;
- *     com.aston.cloudthread.vault;
- *     com.aston.cloudthread.springcloudconfig
+ *        --> in progress, k8s & consul works togeter provide cloud native
+ *        --> microservice cloud thread dynamic config refresh
+ *     com.aston.cloudthread.consul; --> in progress
+ *     com.aston.cloudthread.vault; --> this not suit will not be impl this one
+ *     com.aston.cloudthread.springcloudconfig; --> done
  * </pre>
  *
  * <p>Each sub module provides:
