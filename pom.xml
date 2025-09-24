@@ -27,6 +27,7 @@
         <module>core</module>
         <module>spring-base</module>
         <module>starter</module>
+        <module>examples</module>
     </modules>
 
     <properties>
