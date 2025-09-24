@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>spring-cloud-config-spring-starter</module>
+        <module>spring-cloud-config-starter</module>
         <module>spring-cloud-consul-starter</module>
     </modules>
 </project>
