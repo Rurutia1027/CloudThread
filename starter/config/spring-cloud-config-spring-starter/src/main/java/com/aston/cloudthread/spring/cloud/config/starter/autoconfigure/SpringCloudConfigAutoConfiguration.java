@@ -11,10 +11,10 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.springcloudconfig.starter.autoconfigure;
+package com.aston.cloudthread.spring.cloud.config.starter.autoconfigure;
 
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
-import com.aston.cloudthread.springcloudconfig.starter.refresher.SpringCloudConfigRefresherHandler;
+import com.aston.cloudthread.spring.cloud.config.starter.refresher.SpringCloudConfigRefresherHandler;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
