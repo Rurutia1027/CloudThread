@@ -24,7 +24,7 @@ import org.springframework.core.env.Environment;
 /**
  * Spring Cloud Config refresher for dynamic thread pool.
  */
-@Slf4j(topic = "CloudThreadConfigRefresher")
+@Slf4j(topic = "CloudThreadCloudConfigRefresher")
 public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRefresher
         implements ApplicationListener<EnvironmentChangeEvent> {
     private final Environment environment;

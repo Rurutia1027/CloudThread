@@ -32,7 +32,7 @@ import org.springframework.core.env.Environment;
 public class SpringCloudConfigAutoConfiguration {
     @Bean
     public SpringCloudConfigRefresherHandler springCloudConfigRefresherHandler(
-            BootstrapConfigProperties properties, Environment env) {
-        return new SpringCloudConfigRefresherHandler(properties, env);
+            BootstrapConfigProperties props, Environment env) {
+        return new SpringCloudConfigRefresherHandler(props, env);
     }
 }
