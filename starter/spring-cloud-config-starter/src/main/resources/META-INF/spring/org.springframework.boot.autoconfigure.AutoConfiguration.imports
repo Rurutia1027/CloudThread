@@ -1,2 +1,1 @@
-com.aston.cloudthread.spring.cloud.config.starter.autoconfigure.SpringCloudConfigAutoConfiguration.class
-com.aston.cloudthread.spring.cloud.bus.starter.autoconfigure.SpringCloudBusAutoConfiguration.class
+com.aston.cloudthread.spring.cloud.config.starter.autoconfigure.SpringCloudConfigAutoConfiguration
