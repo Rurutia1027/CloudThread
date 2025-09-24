@@ -5,26 +5,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.aston.cloudthread</groupId>
-        <artifactId>cloudthread-starter</artifactId>
+        <artifactId>cloudthread-example</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>common-spring-boot-starter</artifactId>
+    <artifactId>cloudthread-spring-cloud-config-starter-example</artifactId>
 
     <dependencies>
+        <!-- Spring Boot Starter -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- Spring Cloud Config Client -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.aston.cloudthread</groupId>
-            <artifactId>cloudthread-spring-base</artifactId>
-            <version>${project.version}</version>
+            <artifactId>spring-cloud-config-starter</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

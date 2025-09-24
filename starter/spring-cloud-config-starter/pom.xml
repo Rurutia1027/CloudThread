@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.aston.cloudthread</groupId>
-        <artifactId>cloudthread-config</artifactId>
+        <artifactId>cloudthread-starter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cloud-thread-spring-cloud-config-spring-boot-starter</artifactId>
+    <artifactId>spring-cloud-config-starter</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <!-- Spring Boot Starter -->
@@ -32,7 +33,7 @@
 
         <dependency>
             <groupId>com.aston.cloudthread</groupId>
-            <artifactId>cloudthread-common-spring-boot-starter</artifactId>
+            <artifactId>common-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

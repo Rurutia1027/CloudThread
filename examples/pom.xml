@@ -10,4 +10,8 @@
     </parent>
 
     <artifactId>cloudthread-example</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>spring-cloud-config-starter-example</module>
+    </modules>
 </project>

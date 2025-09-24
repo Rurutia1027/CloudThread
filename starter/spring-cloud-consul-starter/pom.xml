@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.aston.cloudthread</groupId>
-        <artifactId>cloudthread-config</artifactId>
+        <artifactId>cloudthread-starter</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cloud-thread-spring-cloud-consul-starter</artifactId>
+    <artifactId>spring-cloud-consul-starter</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -25,7 +26,7 @@
 
         <dependency>
             <groupId>com.aston.cloudthread</groupId>
-            <artifactId>cloudthread-common-spring-boot-starter</artifactId>
+            <artifactId>common-spring-boot-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
