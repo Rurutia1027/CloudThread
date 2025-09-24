@@ -1,0 +1,36 @@
+server:
+  port: 18080
+
+spring:
+  application:
+    name: cloudthread-spring-cloud-config-starter-example
+  profiles:
+    active: dev
+  config:
+    import: "configserver:http://localhost:8888"
+
+cloudthread:
+    enable: true
+    thread-pool:
+      core-size: 5
+      max-size: 10
+      queue-capacity: 500
+
+# enable actuator endpoint expose metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - refresh
+          - health
+          - env
+  endpoint:
+    refresh:
+      enabled: true
+  metrics:
+    prometheus:
+      metrics:
+        export:
+          enabled: true            # enable Prometheus export

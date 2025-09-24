@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cloudthread-adapter</artifactId>
+    <artifactId>adapter</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>web-spring-boot-starter</module>

@@ -1,0 +1,13 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: spring-cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Rurutia1027/hands-on-shared-config-repo.git
+          searchPaths: CloudThread/spring-cloud-config-starter-example
+          clone-on-start: true

@@ -9,12 +9,10 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>cloudthread-starter</artifactId>
+    <artifactId>cloudthread-example</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-spring-boot-starter</module>
-        <module>adapter</module>
-        <module>spring-cloud-config-starter</module>
-        <module>spring-cloud-consul-starter</module>
+        <module>spring-cloud-config-starter-example</module>
+        <module>spring-cloud-config-server</module>
     </modules>
 </project>

@@ -13,7 +13,9 @@
  */
 package com.aston.cloudthread.config.common.starter.configuration;
 
+import com.aston.cloudthread.config.common.starter.refresher.CloudThreadPoolRefreshListener;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
+import com.aston.cloudthread.core.notification.service.NotifierDispatcher;
 import com.aston.cloudthread.spring.base.configuration.CloudThreadBaseConfiguration;
 import com.aston.cloudthread.spring.base.enable.MarkerConfiguration;
 import org.springframework.beans.factory.ObjectProvider;
@@ -45,5 +47,10 @@ public class CommonAutoConfiguration {
     @Bean
     public CloudThreadBannerHandler cloudThreadBannerHandler(ObjectProvider<BuildProperties> buildProperties) {
         return new CloudThreadBannerHandler(buildProperties.getIfAvailable()); 
+    }
+
+    @Bean
+    public CloudThreadPoolRefreshListener cloudThreadPoolRefreshListener(NotifierDispatcher notifierDispatcher) {
+        return new CloudThreadPoolRefreshListener(notifierDispatcher);
     }
 }
