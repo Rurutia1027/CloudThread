@@ -10,11 +10,55 @@ spring:
     import: "configserver:http://localhost:8888"
 
 cloudthread:
-    enable: true
-    thread-pool:
-      core-size: 5
-      max-size: 10
+  enable: true   # Enable dynamic thread pool (default: true)
+
+  # Spring Cloud Config related configuration
+  spring-cloud-config:
+    application-name: cloudthread-spring-cloud-config-starter-example
+    profile: dev
+    label: main   # The branch or label in the config repository
+
+  # Consul Config related configuration (optional if not used)
+  consul-config:
+    service-name: cloudthread-service
+    datacenter: dc1
+    key-prefix: config/cloudthread
+
+  # Web thread pool configuration
+  web-config:
+    core-pool-size: 10
+    maximum-pool-size: 50
+    keep-alive-time-seconds: 60
+    notify-config:
+      subscribers: "ops@aston.com,dev@aston.com"  # Notification subscribers
+      intervals: 10  # Notification interval in seconds
+
+  # Config file type (yaml / properties / json)
+  config-file-type: yaml
+
+  # Notification platform configuration
+  notify-platforms:
+    platform: slack   # Supported: discord, slack, teams
+    url: ${SLACK_WEBHOOK_URL}
+
+  # Monitoring configuration
+  monitor-config:
+    enable: true      # Enable monitoring (default: true)
+    collect-type: micrometer   # Metric collection type
+    collect-interval-seconds: 15  # Metric collection interval in seconds
+
+  # Custom thread pool definitions
+  executors:
+    - thread-pool-uid: producerPool
+      core-pool-size: 5
+      maximum-pool-size: 10
       queue-capacity: 500
+      keep-alive-time-seconds: 30
+    - thread-pool-uid: consumerPool
+      core-pool-size: 10
+      maximum-pool-size: 20
+      queue-capacity: 1000
+      keep-alive-time-seconds: 60
 
 # enable actuator endpoint expose metrics
 management:
