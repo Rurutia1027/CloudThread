@@ -1,0 +1,69 @@
+server:
+  port: 18080
+
+spring:
+  application:
+    name: cloudthread-example
+  profiles:
+    active: dev
+  config:
+    import: "consul:"   # Import configuration from Consul (instead of Config Server)
+
+cloudthread:
+  enable: true   # Enable dynamic thread pool (default: true)
+
+  # Consul Config related configuration
+  consul-config:
+    service-name: cloudthread-service
+    datacenter: dc1
+    key-prefix: config/cloudthread   # Prefix in Consul KV store
+
+  # Web thread pool configuration
+  web-config:
+    core-pool-size: 10
+    maximum-pool-size: 50
+    keep-alive-time-seconds: 60
+    notify-config:
+      subscribers: "ops@aston.com,dev@aston.com"
+      intervals: 10
+
+  # Config file type (yaml / properties / json)
+  config-file-type: yaml
+
+  # Notification platform configuration
+  notify-platforms:
+    platform: slack
+    url: ${SLACK_WEBHOOK_URL}
+
+  # Monitoring configuration
+  monitor-config:
+    enable: true
+    collect-type: micrometer
+    collect-interval-seconds: 15
+
+  # Custom thread pool definitions
+  executors:
+    - thread-pool-uid: producerPool
+      core-pool-size: 5
+      maximum-pool-size: 10
+      queue-capacity: 500
+      keep-alive-time-seconds: 30
+    - thread-pool-uid: consumerPool
+      core-pool-size: 10
+      maximum-pool-size: 20
+      queue-capacity: 1000
+      keep-alive-time-seconds: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,refresh,health,env
+  endpoint:
+    refresh:
+      enabled: true
+  metrics:
+    prometheus:
+      metrics:
+        export:
+          enabled: true
