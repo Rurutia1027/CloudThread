@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.springcloudconfig.starter.refresher;
+package com.aston.cloudthread.spring.cloud.config.starter.refresher;
 
 import cn.hutool.core.util.StrUtil;
 import com.aston.cloudthread.config.common.starter.refresher.AbstractCloudThreadPoolRefresher;
