@@ -14,25 +14,19 @@
 package com.aston.cloudthread.spring.cloud.config.starter.autoconfigure;
 
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
+import com.aston.cloudthread.spring.base.enable.MarkerConfiguration;
 import com.aston.cloudthread.spring.cloud.config.starter.refresher.SpringCloudConfigRefresherHandler;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
-@Configuration
-@ConditionalOnBean(BootstrapConfigProperties.class)
-@ConditionalOnProperty(prefix = BootstrapConfigProperties.PREFIX,
-        value = "enable",
-        havingValue = "true",
-        matchIfMissing = true)
-@AutoConfigureAfter(name = "com.aston.cloudthread.config.common.starter.configuration.CommonAutoConfiguration")
+@Configurable
+@ConditionalOnBean(MarkerConfiguration.Marker.class)
+@ConditionalOnProperty(prefix = BootstrapConfigProperties.PREFIX, value = "enable", matchIfMissing = true, havingValue = "true")
 public class SpringCloudConfigAutoConfiguration {
     @Bean
-    public SpringCloudConfigRefresherHandler springCloudConfigRefresherHandler(
-            BootstrapConfigProperties props, Environment env) {
-        return new SpringCloudConfigRefresherHandler(props, env);
+    public SpringCloudConfigRefresherHandler springCloudConfigRefresherHandler(BootstrapConfigProperties props) {
+        return new SpringCloudConfigRefresherHandler(props);
     }
 }

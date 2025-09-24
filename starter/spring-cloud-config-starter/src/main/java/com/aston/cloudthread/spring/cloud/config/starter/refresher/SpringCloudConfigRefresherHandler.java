@@ -25,32 +25,15 @@ import org.springframework.core.env.Environment;
  * Spring Cloud Config refresher for dynamic thread pool.
  */
 @Slf4j(topic = "CloudThreadCloudConfigRefresher")
-public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRefresher
-        implements ApplicationListener<EnvironmentChangeEvent> {
-    private final Environment environment;
+public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRefresher {
+    // self define spring cloud config handler
 
-    public SpringCloudConfigRefresherHandler(BootstrapConfigProperties props,
-                                             Environment environment) {
+    public SpringCloudConfigRefresherHandler(BootstrapConfigProperties props) {
         super(props);
-        this.environment = environment;
     }
 
     @Override
     protected void registerListener() throws Exception {
         log.info("Spring Cloud Config refresher registered for cloud dynamic thread pool");
-    }
-
-    @Override
-    public void onApplicationEvent(EnvironmentChangeEvent event) {
-        // filter only relevant keys for thread pool
-        if (event.getKeys().stream().anyMatch(key -> key.startsWith(BootstrapConfigProperties.PREFIX))) {
-            // read the full config value as string
-            String configInfo = environment.getProperty(BootstrapConfigProperties.PREFIX);
-            if (StrUtil.isNotBlank(configInfo)) {
-                // delegate to parent method to parse, detect changes, and publish event
-                refreshThreadPoolProperties(configInfo);
-                log.info("Cloud thread pool properties refreshed via Spring Cloud Config");
-            }
-        }
     }
 }

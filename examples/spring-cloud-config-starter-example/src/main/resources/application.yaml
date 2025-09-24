@@ -4,16 +4,17 @@ server:
 spring:
   application:
     name: cloudthread-spring-cloud-config-starter-example
+  profiles:
+    active: dev
   config:
     import: "configserver:http://localhost:8888"
 
-#cloudthread:
-#  bootstrap:
-#    enable: true
-#    thread-pool:
-#      core-size: 5
-#      max-size: 10
-#      queue-capacity: 50
+cloudthread:
+    enable: true
+    thread-pool:
+      core-size: 5
+      max-size: 10
+      queue-capacity: 500
 
 # enable actuator endpoint expose metrics
 management:
@@ -21,7 +22,13 @@ management:
     web:
       exposure:
         include:
-          - prometheus             # exposed Prometheus endpoint
+          - prometheus
+          - refresh
+          - health
+          - env
+  endpoint:
+    refresh:
+      enabled: true
   metrics:
     prometheus:
       metrics:

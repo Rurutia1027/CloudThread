@@ -26,32 +26,16 @@ import org.springframework.core.env.Environment;
  * Listens for EnvironmentChangeEvent triggered by Spring Cloud Consul watch.
  */
 @Slf4j(topic = "CloudThreadConsulRefresher")
-public class SpringCloudConsulConfigRefresherHandler extends AbstractCloudThreadPoolRefresher
-        implements ApplicationListener<EnvironmentChangeEvent> {
-    private final Environment environment;
+public class SpringCloudConsulConfigRefresherHandler extends AbstractCloudThreadPoolRefresher {
+    // todo: add spring cloud consul event handler here, and let it be the sub-class inner
+    //  member variable
 
-    public SpringCloudConsulConfigRefresherHandler(BootstrapConfigProperties props, Environment environment) {
+    public SpringCloudConsulConfigRefresherHandler(BootstrapConfigProperties props) {
         super(props);
-        this.environment = environment;
     }
 
     @Override
     protected void registerListener() throws Exception {
         log.info("Consul refresher registered for cloud dynamic thread pool");
-    }
-
-    @Override
-    public void onApplicationEvent(EnvironmentChangeEvent event) {
-        try {
-            if (event.getKeys().stream().anyMatch(k -> k.startsWith(BootstrapConfigProperties.PREFIX))) {
-                String configInfo = environment.getProperty(BootstrapConfigProperties.PREFIX);
-                if (StrUtil.isNotBlank(configInfo)) {
-                    refreshThreadPoolProperties(configInfo);
-                    log.info("Cloud thread pool properties refreshed via Consul");
-                }
-            }
-        } catch (Exception e) {
-            log.error("Error refreshing cloud thread pool from Consul", e);
-        }
     }
 }

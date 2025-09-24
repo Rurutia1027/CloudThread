@@ -9,5 +9,5 @@ spring:
       server:
         git:
           uri: https://github.com/Rurutia1027/hands-on-shared-config-repo.git
-          searchPaths: Hands-on-Lab.Config-Center/spring-cloud-config
+          searchPaths: CloudThread/spring-cloud-config-starter-example
           clone-on-start: true
