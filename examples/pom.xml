@@ -14,5 +14,6 @@
     <modules>
         <module>spring-cloud-config-starter-example</module>
         <module>spring-cloud-config-server</module>
+        <module>spring-cloud-consul-starter-example</module>
     </modules>
 </project>

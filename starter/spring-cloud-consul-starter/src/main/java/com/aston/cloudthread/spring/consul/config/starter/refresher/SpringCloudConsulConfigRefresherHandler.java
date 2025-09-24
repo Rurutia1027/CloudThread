@@ -13,13 +13,9 @@
  */
 package com.aston.cloudthread.spring.consul.config.starter.refresher;
 
-import cn.hutool.core.util.StrUtil;
 import com.aston.cloudthread.config.common.starter.refresher.AbstractCloudThreadPoolRefresher;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.context.environment.EnvironmentChangeEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.core.env.Environment;
 
 /**
  * Consul config refresher for dynamic thread pool.
