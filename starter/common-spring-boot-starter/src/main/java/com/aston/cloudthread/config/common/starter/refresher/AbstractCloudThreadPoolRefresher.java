@@ -106,6 +106,7 @@ public abstract class AbstractCloudThreadPoolRefresher implements ApplicationRun
      *
      * @param configInfo Raw configuration string (e.g., YAML or properties format)
      */
+    @Deprecated
     @SneakyThrows
     public void refreshThreadPoolProperties(String configInfo) {
         Map<Object, Object> configInfoMap =
@@ -119,5 +120,21 @@ public abstract class AbstractCloudThreadPoolRefresher implements ApplicationRun
 
         // Publish event to notify all CloudThread listeners of configuration changes
         ApplicationContextHolder.publishEvent(new CloudThreadPoolConfigUpdateEvent(this, refresherProperties));
+    }
+
+    public void refreshThreadPoolProperties(Map<String, Object> refreshProps) {
+        if (refreshProps == null || refreshProps.isEmpty()) {
+            log.info("Empty refresh properties received, return!");
+            return;
+        }
+
+        ConfigurationPropertySource sources =
+                new MapConfigurationPropertySource(refreshProps);
+        Binder binder = new Binder(sources);
+        BootstrapConfigProperties refreshBootstrapConfigProps =
+                binder.bind(BootstrapConfigProperties.PREFIX, Bindable.ofInstance(props)).get();
+
+        // Publish event to notify all CloudThread listeners of configuration change
+        ApplicationContextHolder.publishEvent(new CloudThreadPoolConfigUpdateEvent(this, refreshBootstrapConfigProps));
     }
 }

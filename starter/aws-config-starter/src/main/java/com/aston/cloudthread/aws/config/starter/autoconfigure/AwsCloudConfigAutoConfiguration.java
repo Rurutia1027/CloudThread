@@ -11,23 +11,30 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.spring.cloud.config.starter.autoconfigure;
+package com.aston.cloudthread.aws.config.starter.autoconfigure;
 
+import com.aston.cloudthread.aws.config.starter.awsconfig.AwsCloudConfigFetcher;
+import com.aston.cloudthread.aws.config.starter.refresher.AwsCloudConfigRefresherHandler;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
 import com.aston.cloudthread.spring.base.enable.MarkerConfiguration;
-import com.aston.cloudthread.spring.cloud.config.starter.refresher.SpringCloudConfigRefresherHandler;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 
 @Configurable
 @ConditionalOnBean(MarkerConfiguration.Marker.class)
-@ConditionalOnProperty(prefix = BootstrapConfigProperties.PREFIX, value = "enable", matchIfMissing = true, havingValue = "true")
-public class SpringCloudConfigAutoConfiguration {
+@ConditionalOnProperty(prefix = BootstrapConfigProperties.PREFIX, value = "enable",
+        matchIfMissing = true, havingValue = "true")
+public class AwsCloudConfigAutoConfiguration {
     @Bean
-    public SpringCloudConfigRefresherHandler springCloudConfigRefresherHandler(BootstrapConfigProperties props) {
-        return new SpringCloudConfigRefresherHandler(props);
+    public AwsCloudConfigFetcher awsCloudConfigFetcher() {
+        // TODO: refine this later for occupy compile ok first
+        return new AwsCloudConfigFetcher(null);
+    }
+
+    @Bean
+    public AwsCloudConfigRefresherHandler awsCloudConfigRefresherHandler(AwsCloudConfigFetcher fetcher, BootstrapConfigProperties props) {
+        return new AwsCloudConfigRefresherHandler(fetcher, props);
     }
 }

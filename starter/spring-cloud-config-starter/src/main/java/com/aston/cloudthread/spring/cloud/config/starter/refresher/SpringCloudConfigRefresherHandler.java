@@ -13,16 +13,29 @@
  */
 package com.aston.cloudthread.spring.cloud.config.starter.refresher;
 
+import cn.hutool.core.util.StrUtil;
 import com.aston.cloudthread.config.common.starter.refresher.AbstractCloudThreadPoolRefresher;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
+import com.aston.cloudthread.core.parser.ConfigParserHandler;
+import com.aston.cloudthread.spring.base.support.ApplicationContextHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.cloud.context.environment.EnvironmentChangeEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Spring Cloud Config refresher for dynamic thread pool.
  */
 @Slf4j(topic = "CloudThreadCloudConfigRefresher")
-public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRefresher {
-    // self define spring cloud config handler
+public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRefresher implements ApplicationListener<EnvironmentChangeEvent> {
 
     public SpringCloudConfigRefresherHandler(BootstrapConfigProperties props) {
         super(props);
@@ -31,5 +44,31 @@ public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRe
     @Override
     protected void registerListener() throws Exception {
         log.info("Spring Cloud Config refresher registered for cloud dynamic thread pool");
+    }
+
+    @Override
+    public void onApplicationEvent(EnvironmentChangeEvent event) {
+        Set<String> changedKeys = event.getKeys().stream()
+                .filter(k -> k.startsWith(BootstrapConfigProperties.PREFIX))
+                .collect(Collectors.toSet());
+
+        if (changedKeys.isEmpty()) {
+            log.info("No cloudthread configs modification detected, no need to refresh local" +
+                    " thread pool configs");
+            return;
+        }
+
+        ConfigurableEnvironment env =
+                (ConfigurableEnvironment) ApplicationContextHolder.CONTEXT.getEnvironment();
+        Map<String, Object> refreshProps = new HashMap<>();
+        for (String key : changedKeys) {
+            Object value = env.getProperty(key);
+            if (value != null) {
+                refreshProps.put(key, value);
+            }
+        }
+        // call our new impl KV based properties local thread pool config refresher
+        super.refreshThreadPoolProperties(refreshProps);
+        log.info("CloudThread local thread pools refreshed based on updated config keys");
     }
 }
