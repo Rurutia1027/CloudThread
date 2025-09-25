@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 @Configurable
 @ConditionalOnBean(MarkerConfiguration.Marker.class)

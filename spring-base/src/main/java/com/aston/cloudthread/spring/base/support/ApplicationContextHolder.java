@@ -27,7 +27,7 @@ import java.util.Map;
  * allowing retrieval of Beans in non-Spring-managed environments.
  */
 public class ApplicationContextHolder implements ApplicationContextAware {
-    private static ApplicationContext CONTEXT;
+    public static ApplicationContext CONTEXT;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
