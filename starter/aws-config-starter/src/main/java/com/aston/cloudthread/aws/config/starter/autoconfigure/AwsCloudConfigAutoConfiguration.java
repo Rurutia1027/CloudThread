@@ -13,6 +13,7 @@
  */
 package com.aston.cloudthread.aws.config.starter.autoconfigure;
 
+import com.aston.cloudthread.aws.config.starter.awsconfig.AwsCloudConfigFetcher;
 import com.aston.cloudthread.aws.config.starter.refresher.AwsCloudConfigRefresherHandler;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
 import com.aston.cloudthread.spring.base.enable.MarkerConfiguration;
@@ -27,7 +28,13 @@ import org.springframework.context.annotation.Bean;
         matchIfMissing = true, havingValue = "true")
 public class AwsCloudConfigAutoConfiguration {
     @Bean
-    public AwsCloudConfigRefresherHandler awsCloudConfigRefresherHandler(BootstrapConfigProperties props) {
-        return new AwsCloudConfigRefresherHandler(props);
+    public AwsCloudConfigFetcher awsCloudConfigFetcher() {
+        // TODO: refine this later for occupy compile ok first
+        return new AwsCloudConfigFetcher(null);
+    }
+
+    @Bean
+    public AwsCloudConfigRefresherHandler awsCloudConfigRefresherHandler(AwsCloudConfigFetcher fetcher, BootstrapConfigProperties props) {
+        return new AwsCloudConfigRefresherHandler(fetcher, props);
     }
 }
