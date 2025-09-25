@@ -44,6 +44,11 @@ public class BootstrapConfigProperties {
     private ConsulConfig consulConfig;
 
     /**
+     * AwsConfig
+     */
+    private AwsConfig awsConfig;
+
+    /**
      * Web thread pool config
      */
     private WebThreadPoolExecutorConfig webConfig;
@@ -99,6 +104,39 @@ public class BootstrapConfigProperties {
          * Consul configuration path or key
          */
         private String keyPrefix;
+    }
+
+    /**
+     * cloudthread:
+     *   aws-config:
+     *     region: us-east-1
+     *     profile: my-dev-profile
+     *     parameter-keys:
+     *       - /cloudthread/producerPool/corePoolSize
+     *       - /cloudthread/consumerPool/maximumPoolSize
+     *     refresh-interval-seconds: 60
+     */
+    @Data
+    public static class AwsConfig {
+        /**
+         * AWS region, e.g., "us-east-1"
+         */
+        private String region;
+
+        /**
+         * AWS credentials profile name (optional)
+         */
+        private String profile;
+
+        /**
+         * List of parameter keys to fetch from SSM/AppConfig
+         */
+        private List<String> parameterKeys;
+
+        /**
+         * Optional refresh interval in seconds
+         */
+        private long refreshIntervalSeconds = 60;
     }
 
     @Data
