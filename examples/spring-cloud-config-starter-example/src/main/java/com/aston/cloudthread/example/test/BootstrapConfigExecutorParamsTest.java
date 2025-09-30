@@ -59,5 +59,26 @@ public class BootstrapConfigExecutorParamsTest {
         ThreadPoolExecutorProperties producer = producerOpt.get();
         assertEquals(5, producer.getCorePoolSize(), "Producer corePoolSize mismatch");
         assertEquals(10, producer.getMaximumPoolSize(), "Producer maximumPoolSize mismatch");
+        assertEquals(500, producer.getQueueCapacity(), "Producer queueCapacity mismatch!");
+        assertEquals(30L, producer.getKeepAliveTimeSeconds(), "Producer keepAliveTimeSeconds" +
+                " mismatch!");
+        assertTrue(producer.getAllowCoreThreadTimeout(), "Producer allowCoreThreadTimeout " +
+                "should be true");
+
+        log.info("cloudthread-producer configuration is correct: {}", producer);
+
+        // Validate cloudthread-consumer
+        Optional<ThreadPoolExecutorProperties> consumerOpt = executors.stream()
+                .filter(e -> "cloudthread-consumer".equals(e.getThreadPoolUID()))
+                .findFirst();
+        assertTrue(consumerOpt.isPresent(), "cloudthread-consumer should exist");
+        ThreadPoolExecutorProperties consumer = consumerOpt.get();
+        assertEquals(10, consumer.getCorePoolSize(), "Consumer corePoolSize mismatch");
+        assertEquals(20, consumer.getMaximumPoolSize(), "Consumer maximumPoolSize mismatch");
+        assertEquals(1000, consumer.getQueueCapacity(), "Consumer queueCapacity mismatch");
+        assertEquals(60L, consumer.getKeepAliveTimeSeconds(), "Consumer keepAliveTimeSeconds mismatch");
+        assertTrue(consumer.getAllowCoreThreadTimeout(), "Consumer allowCoreThreadTimeout should be true");
+
+        log.info("cloudthread-consumer configuration is correct: {}", consumer);
     }
 }
