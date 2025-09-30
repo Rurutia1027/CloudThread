@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.example.test;
+package com.aston.cloudthread.example;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

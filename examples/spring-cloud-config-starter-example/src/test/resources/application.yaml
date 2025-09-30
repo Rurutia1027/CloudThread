@@ -3,9 +3,9 @@ server:
 
 spring:
   application:
-    name: cloudthread-spring-cloud-config-starter-example
+    name: cloudthread-spring-cloud-config-starter-example-test
   profiles:
-    active: dev
+    active: test
   config:
     import: "configserver:http://localhost:8888"
 
@@ -15,7 +15,7 @@ cloudthread:
   # Spring Cloud Config related configuration
   spring-cloud-config:
     application-name: cloudthread-spring-cloud-config-starter-example
-    profile: dev
+    profile: test
     label: main   # The branch or label in the config repository
 
   # Consul Config related configuration (optional if not used)
@@ -49,8 +49,8 @@ cloudthread:
 
   # Custom thread pool definitions
   executors:
-    - thread-pool-uid: cloudthread-producer
-      core-pool-size: 5
+    - thread-pool-uid: cloudthread-with-dynamic-annotation
+      core-pool-size: 9
       maximum-pool-size: 10
       queue-capacity: 500
       keep-alive-time-seconds: 30
@@ -58,7 +58,7 @@ cloudthread:
       rejected-handler: AbortPolicy
       allow-core-thread-timeout: true
 
-    - thread-pool-uid: cloudthread-consumer
+    - thread-pool-uid: cloudthread-without-dynamic-annotation
       core-pool-size: 10
       maximum-pool-size: 20
       queue-capacity: 1000

@@ -56,7 +56,7 @@ public class CloudThreadBaseTestConfig {
         executorProps.setMaximumPoolSize(4);
         executorProps.setWorkingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.getName());
         executorProps.setQueueCapacity(100);
-        executorProps.setKeeAliveTimeSeconds(60L);
+        executorProps.setKeepAliveTimeSeconds(60L);
         executorProps.setAllowCoreThreadTimeout(false);
         executorProps.setRejectedHandler("ABORT_POLICY");
 

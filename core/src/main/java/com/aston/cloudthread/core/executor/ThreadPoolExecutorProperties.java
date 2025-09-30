@@ -61,7 +61,7 @@ public class ThreadPoolExecutorProperties {
     /**
      * Thread idle alive time in seconds.
      */
-    private Long keeAliveTimeSeconds;
+    private Long keepAliveTimeSeconds;
 
     /**
      * Is core thread timeout allowed?

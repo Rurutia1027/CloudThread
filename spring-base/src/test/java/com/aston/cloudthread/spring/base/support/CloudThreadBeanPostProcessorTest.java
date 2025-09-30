@@ -101,7 +101,7 @@ class CloudThreadBeanPostProcessorTest {
                 .queueCapacity(20)
                 .workingQueue(BlockingQueueTypeEnum.LINKED_BLOCKING_QUEUE.getName())
                 .allowCoreThreadTimeout(true)
-                .keeAliveTimeSeconds(1000L)
+                .keepAliveTimeSeconds(1000L)
                 .build();
         props.setExecutors(Collections.singletonList(overrideProps));
 

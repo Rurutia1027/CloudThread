@@ -119,8 +119,8 @@ public class CloudThreadBeanPostProcessor implements BeanPostProcessor {
         ReflectUtil.setFieldValue(cloudThreadExecutor, "workQueue", workQueue);
 
         // 2. Set the keep-alive time. If null, keep the original value or use the default (e.g., 60 seconds)
-        long keepAlive = executorProperties.getKeeAliveTimeSeconds() != null
-                ? executorProperties.getKeeAliveTimeSeconds()
+        long keepAlive = executorProperties.getKeepAliveTimeSeconds() != null
+                ? executorProperties.getKeepAliveTimeSeconds()
                 : cloudThreadExecutor.getKeepAliveTime(TimeUnit.SECONDS); // or 60L
         cloudThreadExecutor.setKeepAliveTime(keepAlive, TimeUnit.SECONDS);
 
