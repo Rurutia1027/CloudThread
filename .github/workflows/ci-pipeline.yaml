@@ -41,6 +41,8 @@ jobs:
 
       # Build and run tests
       - name: Build with Maven
+        env:
+          MAVEN_OPTS: "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
         run: mvn clean install -B -V
 
       - name: Generate JaCoCo Test Report
