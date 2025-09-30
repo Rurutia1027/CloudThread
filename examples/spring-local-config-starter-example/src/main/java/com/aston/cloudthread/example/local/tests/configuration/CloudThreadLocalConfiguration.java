@@ -1,4 +1,4 @@
-package com.aston.cloudthread.example.configuration;
+package com.aston.cloudthread.example.local.tests.configuration;
 
 import com.aston.cloudthread.core.executor.support.BlockingQueueTypeEnum;
 import com.aston.cloudthread.core.toolkit.ThreadPoolExecutorBuilder;
