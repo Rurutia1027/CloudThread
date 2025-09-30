@@ -1,0 +1,76 @@
+server:
+  port: 8099
+
+spring:
+  application:
+    name: cloudthread-spring-local-config-starter-example
+  profiles:
+    active: dev
+  cloud:
+    config:
+      enabled: false
+
+cloudthread:
+  enable: true   # Enable dynamic thread pool (default: true)
+
+  # Web thread pool configuration
+  web-config:
+    core-pool-size: 10
+    maximum-pool-size: 50
+    keep-alive-time-seconds: 60
+    notify-config:
+      subscribers: "ops@aston.com,dev@aston.com"  # Notification subscribers
+      intervals: 10  # Notification interval in seconds
+
+  # Config file type (yaml / properties / json)
+  config-file-type: yaml
+
+  # Notification platform configuration
+  notify-platforms:
+    platform: slack   # Supported: discord, slack, teams
+    url: ${SLACK_WEBHOOK_URL}
+
+  # Monitoring configuration
+  monitor-config:
+    enable: true      # Enable monitoring (default: true)
+    collect-type: micrometer   # Metric collection type
+    collect-interval-seconds: 15  # Metric collection interval in seconds
+
+  # Custom thread pool definitions
+  executors:
+    - thread-pool-uid: cloudthread-local-instance-1
+      core-pool-size: 5
+      maximum-pool-size: 10
+      queue-capacity: 500
+      keep-alive-time-seconds: 30
+      working-queue: LinkedBlockingQueue
+      rejected-handler: AbortPolicy
+      allow-core-thread-timeout: true
+
+    - thread-pool-uid: cloudthread-local-instance-2
+      core-pool-size: 10
+      maximum-pool-size: 20
+      queue-capacity: 1000
+      keep-alive-time-seconds: 60
+      working-queue: LinkedBlockingQueue
+      rejected-handler: AbortPolicy
+      allow-core-thread-timeout: true
+
+# enable actuator endpoint expose metrics
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - prometheus
+          - refresh
+          - health
+          - env
+  endpoint:
+    refresh:
+      enabled: true
+  metrics:
+    prometheus:
+      metrics:
+        export:
+          enabled: true            # enable Prometheus export

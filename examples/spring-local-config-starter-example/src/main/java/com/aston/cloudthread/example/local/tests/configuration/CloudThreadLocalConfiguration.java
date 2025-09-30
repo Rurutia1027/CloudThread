@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.example.configuration;
+package com.aston.cloudthread.example.local.tests.configuration;
 
 import com.aston.cloudthread.core.executor.support.BlockingQueueTypeEnum;
 import com.aston.cloudthread.core.toolkit.ThreadPoolExecutorBuilder;
@@ -22,19 +22,18 @@ import org.springframework.context.annotation.Configuration;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
-public class CloudThreadPoolConfiguration {
-
+public class CloudThreadLocalConfiguration {
     @Bean
     @CloudDynamicThreadPool
     public ThreadPoolExecutor cloudThreadProducer() {
         return ThreadPoolExecutorBuilder.builder()
-                .threadPoolUID("cloudthread-producer")
+                .threadPoolUID("cloudthread-local-instance-1")
                 .corePoolSize(2)
                 .maximumPoolSize(4)
                 .keepAliveTimeSeconds(9999L)
                 .awaitTerminationMillis(5000L)
                 .workQueueType(BlockingQueueTypeEnum.SYNCHRONOUS_QUEUE)
-                .threadFactory("cloudthread-producer_")
+                .threadFactory("cloudthread-local-instance-1_")
                 .rejectedHandler(new ThreadPoolExecutor.CallerRunsPolicy())
                 .dynamicPool()
                 .build();
@@ -44,12 +43,12 @@ public class CloudThreadPoolConfiguration {
     @CloudDynamicThreadPool
     public ThreadPoolExecutor cloudThreadConsumer() {
         return ThreadPoolExecutorBuilder.builder()
-                .threadPoolUID("cloudthread-consumer")
+                .threadPoolUID("cloudthread-local-instance-2")
                 .corePoolSize(4)
                 .maximumPoolSize(6)
                 .keepAliveTimeSeconds(9999L)
                 .workQueueType(BlockingQueueTypeEnum.SYNCHRONOUS_QUEUE)
-                .threadFactory("cloudthread-consumer_")
+                .threadFactory("cloudthread-local-instance-2_")
                 .rejectedHandler(new ThreadPoolExecutor.CallerRunsPolicy())
                 .dynamicPool()
                 .build();
