@@ -4,6 +4,7 @@ import com.aston.cloudthread.core.executor.support.BlockingQueueTypeEnum;
 import com.aston.cloudthread.core.toolkit.ThreadPoolExecutorBuilder;
 import com.aston.cloudthread.example.local.LocalCloudThreadTestApp;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +15,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
+
+@Disabled("Reflect not allowed in CI pipeline, disable test cases")
 @SpringBootTest(
         classes = LocalCloudThreadTestApp.class,
         properties = {
