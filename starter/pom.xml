@@ -16,6 +16,5 @@
         <module>adapter</module>
         <module>spring-cloud-config-starter</module>
         <module>spring-cloud-consul-starter</module>
-        <module>aws-config-starter</module>
     </modules>
 </project>
