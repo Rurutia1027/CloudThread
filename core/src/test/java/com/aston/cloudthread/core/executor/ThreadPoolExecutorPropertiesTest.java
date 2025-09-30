@@ -36,7 +36,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .queueCapacity(100)
                 .workingQueue("ArrayBlockingQueue")
                 .rejectedHandler("AbortPolicy")
-                .keeAliveTimeSeconds(60L)
+                .keepAliveTimeSeconds(60L)
                 .allowCoreThreadTimeout(true)
                 .notify(notifyConfig)
                 .alarm(alarmConfig)
@@ -47,7 +47,7 @@ class ThreadPoolExecutorPropertiesTest {
         assertEquals(4, props.getMaximumPoolSize());
         assertEquals(100, props.getQueueCapacity());
         assertEquals("ArrayBlockingQueue", props.getWorkingQueue());
-        assertEquals(60L, props.getKeeAliveTimeSeconds());
+        assertEquals(60L, props.getKeepAliveTimeSeconds());
         assertTrue(props.getAllowCoreThreadTimeout());
         assertEquals(notifyConfig, props.getNotify());
         assertEquals(alarmConfig, props.getAlarm());
@@ -61,7 +61,7 @@ class ThreadPoolExecutorPropertiesTest {
                 .setQueueCapacity(10)
                 .setWorkingQueue("LinkedBlockingQueue")
                 .setRejectedHandler("DiscardPolicy")
-                .setKeeAliveTimeSeconds(30L)
+                .setKeepAliveTimeSeconds(30L)
                 .setAllowCoreThreadTimeout(false);
 
         assertEquals("pool-2", props.getThreadPoolUID());
@@ -70,7 +70,7 @@ class ThreadPoolExecutorPropertiesTest {
         assertEquals(10, props.getQueueCapacity());
         assertEquals("LinkedBlockingQueue", props.getWorkingQueue());
         assertEquals("DiscardPolicy", props.getRejectedHandler());
-        assertEquals(30L, props.getKeeAliveTimeSeconds());
+        assertEquals(30L, props.getKeepAliveTimeSeconds());
         assertFalse(props.getAllowCoreThreadTimeout());
     }
 

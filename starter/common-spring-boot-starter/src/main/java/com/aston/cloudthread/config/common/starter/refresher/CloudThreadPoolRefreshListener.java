@@ -118,8 +118,8 @@ public class CloudThreadPoolRefreshListener implements ApplicationListener<Cloud
                                 remoteProps.getCorePoolSize()),
                         String.format(CHANGE_DELIMITER, originalProps.getMaximumPoolSize(), remoteProps.getMaximumPoolSize()),
                         String.format(CHANGE_DELIMITER, originalProps.getQueueCapacity(), remoteProps.getQueueCapacity()),
-                        String.format(CHANGE_DELIMITER, originalProps.getKeeAliveTimeSeconds(),
-                                remoteProps.getKeeAliveTimeSeconds()),
+                        String.format(CHANGE_DELIMITER, originalProps.getKeepAliveTimeSeconds(),
+                                remoteProps.getKeepAliveTimeSeconds()),
                         String.format(CHANGE_DELIMITER, originalProps.getRejectedHandler(), remoteProps.getRejectedHandler()),
                         String.format(CHANGE_DELIMITER, originalProps.getAllowCoreThreadTimeout(),
                                 remoteProps.getAllowCoreThreadTimeout())
@@ -169,8 +169,8 @@ public class CloudThreadPoolRefreshListener implements ApplicationListener<Cloud
         changes.put("rejectedHandler", new ThreadPoolConfigChangeDTO.ChangePair<>(originalProps.getRejectedHandler(), remoteProps.getRejectedHandler()));
         changes.put("keepAliveTime",
                 new ThreadPoolConfigChangeDTO.ChangePair<>(
-                        originalProps.getKeeAliveTimeSeconds(),
-                        remoteProps.getKeeAliveTimeSeconds()));
+                        originalProps.getKeepAliveTimeSeconds(),
+                        remoteProps.getKeepAliveTimeSeconds()));
 
         ThreadPoolConfigChangeDTO configChangeDTO = ThreadPoolConfigChangeDTO.builder()
                 .activeProfile(activeProfile)
@@ -234,8 +234,8 @@ public class CloudThreadPoolRefreshListener implements ApplicationListener<Cloud
         }
 
         if (remoteProps.getAllowCoreThreadTimeout() != null &&
-                !Objects.equals(remoteProps.getKeeAliveTimeSeconds(), originalProps.getKeeAliveTimeSeconds())) {
-            executor.setKeepAliveTime(remoteProps.getKeeAliveTimeSeconds(), TimeUnit.SECONDS);
+                !Objects.equals(remoteProps.getKeepAliveTimeSeconds(), originalProps.getKeepAliveTimeSeconds())) {
+            executor.setKeepAliveTime(remoteProps.getKeepAliveTimeSeconds(), TimeUnit.SECONDS);
         }
 
         /**
@@ -272,7 +272,7 @@ public class CloudThreadPoolRefreshListener implements ApplicationListener<Cloud
 
                 || isChanged(originalProps.getAllowCoreThreadTimeout(), remoteProps.getAllowCoreThreadTimeout())
 
-                || isChanged(originalProps.getKeeAliveTimeSeconds(), remoteProps.getKeeAliveTimeSeconds())
+                || isChanged(originalProps.getKeepAliveTimeSeconds(), remoteProps.getKeepAliveTimeSeconds())
 
                 || isChanged(originalProps.getRejectedHandler(), remoteProps.getRejectedHandler())
 
