@@ -11,9 +11,10 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.example.tests.configuration;
+package com.aston.cloudthread.example.tests;
 
 import com.aston.cloudthread.example.CloudThreadTestApp;
+import com.aston.cloudthread.example.tests.config.TestCloudThreadConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
