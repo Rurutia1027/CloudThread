@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.spring.cloud.config.starter.refresher;
+package com.aston.cloudthread.local.config.refresher;
 
 import com.aston.cloudthread.config.common.starter.refresher.AbstractCloudThreadPoolRefresher;
 import com.aston.cloudthread.core.config.BootstrapConfigProperties;
@@ -29,10 +29,10 @@ import java.util.stream.Collectors;
 /**
  * Spring Cloud Config refresher for dynamic thread pool.
  */
-@Slf4j(topic = "CloudThreadCloudConfigRefresher")
-public class SpringCloudConfigRefresherHandler extends AbstractCloudThreadPoolRefresher implements ApplicationListener<EnvironmentChangeEvent> {
+@Slf4j(topic = "CloudThreadLocalConfigRefresher")
+public class SpringLocalConfigRefresherHandler extends AbstractCloudThreadPoolRefresher implements ApplicationListener<EnvironmentChangeEvent> {
 
-    public SpringCloudConfigRefresherHandler(BootstrapConfigProperties props) {
+    public SpringLocalConfigRefresherHandler(BootstrapConfigProperties props) {
         super(props);
     }
 
