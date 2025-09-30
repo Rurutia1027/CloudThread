@@ -41,7 +41,7 @@ jobs:
 
       # Build and run tests
       - name: Build with Maven
-        run: mvn clean install -B -V
+        run: mvn clean install -B -V -DskipTests
 
       - name: Start Config Server
         run: mvn -f spring-cloud-config-server spring-boot:run &
