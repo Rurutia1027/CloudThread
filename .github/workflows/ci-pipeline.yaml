@@ -8,7 +8,6 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   build:
 
@@ -17,6 +16,8 @@ jobs:
     strategy:
       matrix:
         java-version: [17]
+    env:
+      MAVEN_OPTS: "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
 
     steps:
       # Checkout repository
@@ -41,13 +42,9 @@ jobs:
 
       # Build and run tests
       - name: Build with Maven
-        env:
-          MAVEN_OPTS: "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
         run: mvn clean install -B -V
 
       - name: Generate JaCoCo Test Report
-        env:
-          MAVEN_OPTS: "--add-opens=java.base/java.util.concurrent=ALL-UNNAMED"
         run: mvn verify
 
       - name: Upload JaCoCo HTML Reports
