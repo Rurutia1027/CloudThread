@@ -35,12 +35,12 @@ cloudthread:
   # Custom thread pool definitions
   executors:
     - thread-pool-uid: cloudthread-with-dynamic-annotation
-      core-pool-size: 9
-      maximum-pool-size: 10
-      queue-capacity: 500
+      core-pool-size: 10
+      maximum-pool-size: 100
+      queue-capacity: 10000
       keep-alive-time-seconds: 30
       working-queue: LinkedBlockingQueue
-      rejected-handler: AbortPolicy
+      rejected-handler: CallerRunsPolicy
       allow-core-thread-timeout: true
 
     - thread-pool-uid: cloudthread-without-dynamic-annotation

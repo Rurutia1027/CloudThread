@@ -41,17 +41,17 @@ import java.util.concurrent.TimeUnit;
 public class LocalConfigCloudThreadPoolTest {
     @Autowired
     @Qualifier("withDynamicAnnotation")
-    private ThreadPoolExecutor cloudThreadPool1;
+    private ThreadPoolExecutor dynamicPool;
 
     @Autowired
     @Qualifier("withoutDynamicAnnotation")
-    private ThreadPoolExecutor cloudThreadPool2;
+    private ThreadPoolExecutor staticPool;
 
 
     @Test
     public void testInitOK() {
-        Assertions.assertNotNull(cloudThreadPool1);
-        Assertions.assertNotNull(cloudThreadPool2);
+        Assertions.assertNotNull(dynamicPool);
+        Assertions.assertNotNull(staticPool);
         Assertions.assertNotNull(CloudThreadRegistry.getAllWrappers());
     }
 
@@ -67,12 +67,12 @@ public class LocalConfigCloudThreadPoolTest {
      */
     @Test
     public void annotationEnableThreadPool_Inner_Params_Should_Be_Same_AS_YAML() {
-        Assertions.assertEquals(cloudThreadPool1.getCorePoolSize(), 9);
-        Assertions.assertEquals(cloudThreadPool1.getMaximumPoolSize(), 10);
-        Assertions.assertTrue(cloudThreadPool1.allowsCoreThreadTimeOut());
-        Assertions.assertEquals(cloudThreadPool1.getQueue().remainingCapacity(), 500);
-        Assertions.assertTrue(cloudThreadPool1 instanceof CloudThreadExecutor);
-        CloudThreadExecutor executor = (CloudThreadExecutor) cloudThreadPool1;
+        Assertions.assertEquals(dynamicPool.getCorePoolSize(), 9);
+        Assertions.assertEquals(dynamicPool.getMaximumPoolSize(), 10);
+        Assertions.assertTrue(dynamicPool.allowsCoreThreadTimeOut());
+        Assertions.assertEquals(dynamicPool.getQueue().remainingCapacity(), 500);
+        Assertions.assertTrue(dynamicPool instanceof CloudThreadExecutor);
+        CloudThreadExecutor executor = (CloudThreadExecutor) dynamicPool;
         Assertions.assertEquals(executor.getKeepAliveTime(TimeUnit.SECONDS), 30);
     }
 
@@ -93,12 +93,12 @@ public class LocalConfigCloudThreadPoolTest {
      */
     @Test
     public void annotationEnableThreadPool_Inner_Params_Should_NOT_Be_Same_AS_YAML() {
-        Assertions.assertEquals(cloudThreadPool2.getCorePoolSize(), 4);
-        Assertions.assertEquals(cloudThreadPool2.getMaximumPoolSize(), 6);
-        Assertions.assertFalse(cloudThreadPool2.allowsCoreThreadTimeOut());
-        Assertions.assertEquals(cloudThreadPool2.getQueue().remainingCapacity(), 0);
-        Assertions.assertTrue(cloudThreadPool2 instanceof CloudThreadExecutor);
-        CloudThreadExecutor executor = (CloudThreadExecutor) cloudThreadPool2;
+        Assertions.assertEquals(staticPool.getCorePoolSize(), 4);
+        Assertions.assertEquals(staticPool.getMaximumPoolSize(), 6);
+        Assertions.assertFalse(staticPool.allowsCoreThreadTimeOut());
+        Assertions.assertEquals(staticPool.getQueue().remainingCapacity(), 0);
+        Assertions.assertTrue(staticPool instanceof CloudThreadExecutor);
+        CloudThreadExecutor executor = (CloudThreadExecutor) staticPool;
         Assertions.assertEquals(executor.getKeepAliveTime(TimeUnit.SECONDS), 9999L);
     }
 }
