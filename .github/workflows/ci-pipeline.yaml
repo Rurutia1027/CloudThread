@@ -44,7 +44,7 @@ jobs:
         run: mvn clean install -B -V -DskipTests
 
       - name: Start Config Server
-        run: cd examples && mvn -f spring-cloud-config-server spring-boot:run &
+        run: cd examples && mvn -f spring-cloud-config-server spring-boot:run -Dspotless.skip=true &
 
       - name: Run Tests
         env:
