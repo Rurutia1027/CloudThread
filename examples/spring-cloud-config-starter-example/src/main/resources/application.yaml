@@ -55,12 +55,14 @@ cloudthread:
       queue-capacity: 500
       keep-alive-time-seconds: 30
       working-queue: LinkedBlockingQueue
+      rejected-handler: AbortPolicy
     - thread-pool-uid: cloudthread-consumer
       core-pool-size: 10
       maximum-pool-size: 20
       queue-capacity: 1000
       keep-alive-time-seconds: 60
       working-queue: LinkedBlockingQueue
+      rejected-handler: AbortPolicy
 
 # enable actuator endpoint expose metrics
 management:

@@ -111,19 +111,30 @@ public class CloudThreadBeanPostProcessor implements BeanPostProcessor {
             cloudThreadExecutor.setMaximumPoolSize(remoteMaximumPoolSize);
         }
 
-        // The blocking queue does not provide a standard setter method, so we use reflection to set it.
-        BlockingQueue workQueue =
-                BlockingQueueTypeEnum.createBlockingQueue(executorProperties.getWorkingQueue(), executorProperties.getQueueCapacity());
+        // 1. Set the BlockingQueue. If the configuration is null, keep the original queue.
+        BlockingQueue workQueue = executorProperties.getWorkingQueue() != null
+                ? BlockingQueueTypeEnum.createBlockingQueue(executorProperties.getWorkingQueue(), executorProperties.getQueueCapacity())
+                : cloudThreadExecutor.getQueue(); // keep the original
 
-        // In Java 9+ module system (JPMS), accessing private fields of JDK internal APIs via reflection is blocked by default.
-        // Therefore, we need to explicitly open reflection permissions.
-        // Add the following parameter in the startup command to open java.util.concurrent package:
-        // IDE: add VM option: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
-        // Deployment: in the startup script (e.g., java -jar), add:
-        // java -jar --add-opens=java.base/java.util.concurrent=ALL-UNNAMED your-app.jar
         ReflectUtil.setFieldValue(cloudThreadExecutor, "workQueue", workQueue);
-        cloudThreadExecutor.setKeepAliveTime(executorProperties.getKeeAliveTimeSeconds(), TimeUnit.SECONDS);
-        cloudThreadExecutor.allowCoreThreadTimeOut(executorProperties.getAllowCoreThreadTimeout());
-        cloudThreadExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
+
+        // 2. Set the keep-alive time. If null, keep the original value or use the default (e.g., 60 seconds)
+        long keepAlive = executorProperties.getKeeAliveTimeSeconds() != null
+                ? executorProperties.getKeeAliveTimeSeconds()
+                : cloudThreadExecutor.getKeepAliveTime(TimeUnit.SECONDS); // or 60L
+        cloudThreadExecutor.setKeepAliveTime(keepAlive, TimeUnit.SECONDS);
+
+        // 3. Set allowCoreThreadTimeout. If null, keep the original value or use default false
+        boolean allowCoreTimeout = executorProperties.getAllowCoreThreadTimeout() != null
+                ? executorProperties.getAllowCoreThreadTimeout()
+                : false; // default false
+        cloudThreadExecutor.allowCoreThreadTimeOut(allowCoreTimeout);
+
+        // 4. Set the RejectedExecutionHandler. If null, use the default AbortPolicy
+        cloudThreadExecutor.setRejectedExecutionHandler(
+                executorProperties.getRejectedHandler() != null
+                        ? new ThreadPoolExecutor.AbortPolicy()
+                        : new ThreadPoolExecutor.AbortPolicy()
+        );
     }
 }
