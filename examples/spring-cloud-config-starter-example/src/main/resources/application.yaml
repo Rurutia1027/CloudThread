@@ -3,25 +3,23 @@ server:
 
 spring:
   application:
-    name: cloudthread-spring-cloud-config-starter-example
+    name: spring-cloud-config-starter-example
   profiles:
     active: dev
-  # Import config server with optional: avoids startup failure if server is down
   config:
-    import: optional:configserver:http://localhost:8888
+    import: "configserver:http://localhost:8888"
   cloud:
     config:
       # Map to config server URL: {name}/{profile}/{label}
-      name: cloudthread-spring-cloud-config-starter-example
-      profile: dev
-      label: main
+      uri: http://localhost:8888
+      fail-fast: true
 
 cloudthread:
   enable: true   # Enable dynamic thread pool (default: true)
 
   # Spring Cloud Config related configuration
   spring-cloud-config:
-    application-name: cloudthread-spring-cloud-config-starter-example
+    application-name: spring-cloud-config-starter-example
     profile: dev
     label: main   # The branch or label in the config repository
 
