@@ -6,8 +6,15 @@ spring:
     name: cloudthread-spring-cloud-config-starter-example
   profiles:
     active: dev
+  # Import config server with optional: avoids startup failure if server is down
   config:
-    import: "configserver:http://localhost:8888"
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      # Map to config server URL: {name}/{profile}/{label}
+      name: cloudthread-spring-cloud-config-starter-example
+      profile: dev
+      label: main
 
 cloudthread:
   enable: true   # Enable dynamic thread pool (default: true)
@@ -18,7 +25,7 @@ cloudthread:
     profile: dev
     label: main   # The branch or label in the config repository
 
-  # Consul Config related configuration (optional if not used)
+  #  # Consul Config related configuration (optional if not used)
   consul-config:
     service-name: cloudthread-service
     datacenter: dc1
