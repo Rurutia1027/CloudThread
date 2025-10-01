@@ -11,12 +11,12 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  */
-package com.aston.cloudthread.example.local.tests;
+package com.aston.cloudthread.example.tests;
 
 import com.aston.cloudthread.core.executor.CloudThreadExecutor;
 import com.aston.cloudthread.core.executor.CloudThreadRegistry;
 import com.aston.cloudthread.example.local.LocalCloudThreadTestApp;
-import com.aston.cloudthread.example.local.tests.configuration.TestCloudThreadConfiguration;
+import com.aston.cloudthread.example.configuration.TestCloudThreadConfiguration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

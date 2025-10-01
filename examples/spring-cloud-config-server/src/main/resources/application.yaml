@@ -11,3 +11,12 @@ spring:
           uri: https://github.com/Rurutia1027/hands-on-shared-config-repo.git
           searchPaths: CloudThread/spring-cloud-config-starter-example
           clone-on-start: true
+          default-label: main
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, env
+  endpoint:
+    refresh:
+      enabled: true

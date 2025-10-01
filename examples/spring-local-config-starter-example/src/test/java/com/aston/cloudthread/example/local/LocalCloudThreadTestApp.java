@@ -13,7 +13,7 @@
  */
 package com.aston.cloudthread.example.local;
 
-import com.aston.cloudthread.example.local.tests.configuration.CloudThreadLocalConfiguration;
+import com.aston.cloudthread.example.configuration.CloudThreadLocalConfiguration;
 import com.aston.cloudthread.spring.base.enable.EnableCloudThread;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
