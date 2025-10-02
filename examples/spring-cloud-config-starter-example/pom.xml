@@ -109,6 +109,14 @@
                             <to>
                                 <image>nanachi1027/${project.artifactId}:${project.version}</image>
                             </to>
+                            <container>
+                                <jvmFlags>
+                                    <jvmFlag>--add-opens=java.base/java.util.concurrent=ALL-UNNAMED</jvmFlag>
+                                </jvmFlags>
+                                <ports>
+                                    <port>18080</port>
+                                </ports>
+                            </container>
                         </configuration>
                         <executions>
                             <execution>
