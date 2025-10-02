@@ -7,11 +7,11 @@ spring:
   profiles:
     active: dev
   config:
-    import: "configserver:http://localhost:8888"
+    import: "configserver:http://config-server:8888"
   cloud:
     config:
       # Map to config server URL: {name}/{profile}/{label}
-      uri: http://localhost:8888
+      uri: http://config-server:8888
       fail-fast: true
 
 cloudthread:

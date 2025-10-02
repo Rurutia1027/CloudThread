@@ -1,0 +1,164 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "panels": [
+    {
+      "type": "gauge",
+      "title": "Thread Pool Active Size",
+      "targets": [
+        {
+          "expr": "dynamic_thread_pool_active_size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none"
+        }
+      },
+      "id": 1
+    },
+    {
+      "type": "gauge",
+      "title": "Thread Pool Core Size",
+      "targets": [
+        {
+          "expr": "dynamic_thread_pool_core_size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "type": "gauge",
+      "title": "Thread Pool Maximum Size",
+      "targets": [
+        {
+          "expr": "dynamic_thread_pool_maximum_size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "type": "graph",
+      "title": "Thread Pool Completed Task Count",
+      "targets": [
+        {
+          "expr": "dynamic_thread_pool_completed_task_count{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}"
+        }
+      ],
+      "id": 4
+    },
+    {
+      "type": "graph",
+      "title": "Thread Pool Queue Remaining Capacity",
+      "targets": [
+        {
+          "expr": "dynamic_thread_pool_queue_remaining_capacity{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}"
+        }
+      ],
+      "id": 5
+    },
+    {
+      "type": "graph",
+      "title": "JVM Memory Used",
+      "targets": [
+        {
+          "expr": "jvm_memory_used_bytes",
+          "legendFormat": "{{area}}/{{id}}"
+        }
+      ],
+      "id": 6
+    },
+    {
+      "type": "graph",
+      "title": "JVM Threads Live Count",
+      "targets": [
+        {
+          "expr": "jvm_threads_live_threads",
+          "legendFormat": "Live Threads"
+        },
+        {
+          "expr": "jvm_threads_peak_threads",
+          "legendFormat": "Peak Threads"
+        }
+      ],
+      "id": 7
+    },
+    {
+      "type": "graph",
+      "title": "JVM GC Pause Time",
+      "targets": [
+        {
+          "expr": "jvm_gc_pause_seconds_sum",
+          "legendFormat": "GC Pause Seconds"
+        }
+      ],
+      "id": 8
+    },
+    {
+      "type": "graph",
+      "title": "Process CPU Usage",
+      "targets": [
+        {
+          "expr": "process_cpu_usage",
+          "legendFormat": "Process CPU"
+        },
+        {
+          "expr": "system_cpu_usage",
+          "legendFormat": "System CPU"
+        }
+      ],
+      "id": 9
+    },
+    {
+      "type": "graph",
+      "title": "Tomcat Sessions Active",
+      "targets": [
+        {
+          "expr": "tomcat_sessions_active_current_sessions",
+          "legendFormat": "Active Sessions"
+        },
+        {
+          "expr": "tomcat_sessions_created_sessions_total",
+          "legendFormat": "Created Sessions"
+        },
+        {
+          "expr": "tomcat_sessions_rejected_sessions_total",
+          "legendFormat": "Rejected Sessions"
+        }
+      ],
+      "id": 10
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["spring-cloud-config-starter-example", "cloudthread"],
+  "templating": {
+    "list": [
+      {
+        "name": "dynamic_thread_pool_id",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(dynamic_thread_pool_active_size{application_name=\"spring-cloud-config-starter-example\"}, dynamic_thread_pool_id)",
+        "allValue": null,
+        "multi": true,
+        "includeAll": true
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "title": "Spring Cloud Config Starter Metrics",
+  "uid": "spring-cloud-config-starter-metrics"
+}

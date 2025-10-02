@@ -1,0 +1,55 @@
+networks:
+  monitoring:
+    driver: bridge
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:9.0.5
+    container_name: grafana
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitoring
+
+  # ======================
+  # Spring Cloud Config Server
+  # ======================
+  config-server:
+    image: nanachi1027/spring-cloud-config-server:0.0.1-SNAPSHOT
+    container_name: config-server
+    restart: always
+    ports:
+      - "8888:8888"
+    networks:
+      - monitoring
+
+  # ======================
+  # Spring Cloud Config Starter Example
+  # ======================
+  config-starter-example:
+    image: nanachi1027/spring-cloud-config-starter-example:0.0.1-SNAPSHOT
+    container_name: config-starter-example
+    restart: always
+    ports:
+      - "18080:18080"
+    environment:
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+    depends_on:
+      - config-server
+    networks:
+      - monitoring
