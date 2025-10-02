@@ -1,0 +1,233 @@
+{
+  "id": null,
+  "uid": "spring-cloud-config-threadpool",
+  "title": "Spring Cloud Config Starter ThreadPool",
+  "version": 1,
+  "schemaVersion": 41,
+  "timezone": "browser",
+  "editable": true,
+  "refresh": "15s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Core Pool Size",
+      "id": 1,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.core.size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Maximum Pool Size",
+      "id": 2,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.maximum.size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Current Active Threads",
+      "id": 3,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.active.size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Current Pool Size",
+      "id": 4,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.current.size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Largest Pool Size",
+      "id": 5,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.largest.size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Queue Size",
+      "id": 6,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.queue.size{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Queue Capacity",
+      "id": 7,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.queue.capacity{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Queue Remaining Capacity",
+      "id": 8,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.queue.remaining.capacity{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Completed Task Count",
+      "id": 9,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.completed.task.count{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    },
+    {
+      "type": "graph",
+      "title": "Rejected Task Count",
+      "id": 10,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "Prometheus"
+      },
+      "targets": [
+        {
+          "expr": "dynamic.thread-pool.reject.count{application_name=\"spring-cloud-config-starter-example\"}",
+          "legendFormat": "{{dynamic_thread_pool_id}}",
+          "refId": "A"
+        }
+      ],
+      "xaxis": {"show": true, "mode": "time"},
+      "yaxis": {"format": "short", "show": true},
+      "lines": true,
+      "linewidth": 2
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "thread_pool_uid",
+        "label": "Thread Pool UID",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "Prometheus"
+        },
+        "query": "label_values(dynamic.thread-pool.core.size, dynamic_thread_pool_id)",
+        "refresh": 1,
+        "multi": true,
+        "includeAll": true,
+        "current": {
+          "text": "All",
+          "value": ["All"]
+        }
+      }
+    ]
+  }
+}
