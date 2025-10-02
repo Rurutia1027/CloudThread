@@ -4,9 +4,9 @@ global:
 scrape_configs:
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['localhost:9090']
+      - targets: ['prometheus:9090']
 
   - job_name: 'cloudthread-spring-cloud-config-starter-example'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['localhost:18080']
+      - targets: ['config-starter-example:18080']

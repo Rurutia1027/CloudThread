@@ -25,3 +25,31 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     networks:
       - monitoring
+
+  # ======================
+  # Spring Cloud Config Server
+  # ======================
+  config-server:
+    image: nanachi1027/spring-cloud-config-server:0.0.1-SNAPSHOT
+    container_name: config-server
+    restart: always
+    ports:
+      - "8888:8888"
+    networks:
+      - monitoring
+
+  # ======================
+  # Spring Cloud Config Starter Example
+  # ======================
+  config-starter-example:
+    image: nanachi1027/spring-cloud-config-starter-example:0.0.1-SNAPSHOT
+    container_name: config-starter-example
+    restart: always
+    ports:
+      - "18080:18080"
+    environment:
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+    depends_on:
+      - config-server
+    networks:
+      - monitoring
